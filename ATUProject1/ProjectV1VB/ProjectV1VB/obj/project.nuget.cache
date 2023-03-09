@@ -1,14 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "dEve1qpM12z+zIpgm+UGGInGr5kZpJ61o64WX8KZAj69zHd9wnvvkSll8f8AHLJMqAf8h9TFi7EJo+PVVXkUlg==",
+  "dgSpecHash": "PigbbAUwM2JfWiO5ciGmU5O9D5QdMlWTfZciA/196lKwm3Xcigte7SYhSymceauJRM2gqhbKYEjF1DljUzdiFQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB\\ProjectV1VB.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Vivie\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\microsoft.net.test.sdk\\17.5.0\\microsoft.net.test.sdk.17.5.0.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\mstest.testadapter\\3.0.2\\mstest.testadapter.3.0.2.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
-    "C:\\Users\\Vivie\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
-    "C:\\Users\\Vivie\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
+    "C:\\Users\\Vivie\\.nuget\\packages\\xamarin.essentials\\1.7.5\\xamarin.essentials.1.7.5.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\xamarin.forms\\5.0.0.2578\\xamarin.forms.5.0.0.2578.nupkg.sha512"
   ],
   "logs": []
 }
