@@ -28,7 +28,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/<vivienne-sudo>/index.json": {}
         },
         "frameworks": {
           "uap10.0.16299": {
@@ -46,6 +47,10 @@
             "MSTest.TestAdapter": {
               "target": "Package",
               "version": "[3.0.2, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.3, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -118,7 +123,8 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/<vivienne-sudo>/index.json": {}
         },
         "frameworks": {
           "netstandard2.0": {
@@ -139,6 +145,10 @@
             "MSTest.TestAdapter": {
               "target": "Package",
               "version": "[3.0.2, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.3, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
