@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "YGhGqtqg5PTiy0FU8O0kVTL8YnFc5R4GUvsTvV5Opfcuiat6uvn5Dfu4D08flKYM3tIaVIz8wbigt3lDS1X4ZQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.iOS\\ProjectV1VB.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Vivie\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
+  ],
+  "logs": []
+}
