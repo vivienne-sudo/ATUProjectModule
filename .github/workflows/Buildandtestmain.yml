@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-release:
+  build-and-test:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,12 +16,18 @@ jobs:
         dotnet-version: '6.0.x'
     - name: Restore NuGet packages
       run: dotnet restore
-      working-directory: ./YourProjectName
+      working-directory: ./ProjectV1VB
     - name: Build for Android
-      run: msbuild /t:Restore,Build /p:Configuration=Release /p:Platform="Android" YourProjectName.sln
-      working-directory: ./
+      run: msbuild /t:Restore,Build /p:Configuration=Debug /p:Platform="Any CPU" ProjectV1VB.Android.csproj
+      working-directory: ./ProjectV1VB.Android
     - name: Build for iOS
-      run: msbuild /t:Restore,Build /p:Configuration=Release /p:Platform="iPhone" YourProjectName.sln
-      working-directory: ./
+      run: msbuild /t:Restore,Build /p:Configuration=Debug /p:Platform="iPhoneSimulator" ProjectV1VB.iOS.csproj
+      working-directory: ./ProjectV1VB.iOS
     - name: Build for UWP
-      run: msbuild /t:Restore,Build /p:Configuration=Release /p:Platform="UAP" YourProject
+      run: msbuild /t:Restore,Build /p:Configuration=Debug /p:Platform="x86" ProjectV1VB.UWP.csproj
+      working-directory: ./ProjectV1VB.UWP
+    - name: Run Android tests
+      run: vstest.console.exe ProjectV1VB.Android.Tests.dll
+      working-directory: ./ProjectV1VB.Android.Tests/bin/Debug/net6.0
+    - name: Run iOS tests
+      run: vst
