@@ -19,11 +19,6 @@
 		<PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Include="MainActivity.cs" />
-		<Compile Include="Resources\Resource.designer.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-	</ItemGroup>
-	<ItemGroup>
 		<None Include="Resources\AboutResources.txt" />
 		<None Include="Assets\AboutAssets.txt" />
 		<None Include="Properties\AndroidManifest.xml" />
