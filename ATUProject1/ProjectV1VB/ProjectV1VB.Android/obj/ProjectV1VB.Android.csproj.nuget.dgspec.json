@@ -8,12 +8,11 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\ProjectV1VB.Android.csproj",
-        "projectName": "ProjectV1VB.Android",
+        "projectName": "com.companyname.ProjectV1VB",
         "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\ProjectV1VB.Android.csproj",
         "packagesPath": "C:\\Users\\Vivie\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\obj\\",
         "projectStyle": "PackageReference",
-        "skipContentFileWrite": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
@@ -23,42 +22,33 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "monoandroid13.0"
+          "net6.0-android"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "monoandroid13.0": {
+          "monoandroid50": {
+            "targetAlias": "net6.0-android",
             "projectReferences": {
               "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB\\ProjectV1VB.csproj": {
                 "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB\\ProjectV1VB.csproj"
               }
             }
           }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
         }
       },
       "frameworks": {
-        "monoandroid13.0": {
-          "dependencies": {
-            "MSTest.TestAdapter": {
-              "target": "Package",
-              "version": "[3.0.2, )"
-            },
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[17.5.0, )"
-            },
-            "Xamarin.Essentials": {
-              "target": "Package",
-              "version": "[1.7.5, )"
-            },
-            "Xamarin.Forms": {
-              "target": "Package",
-              "version": "[5.0.0.2578, )"
-            }
-          }
+        "monoandroid50": {
+          "targetAlias": "net6.0-android",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -80,7 +70,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netstandard2.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -88,8 +78,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netstandard2.0": {
-            "targetAlias": "netstandard2.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -100,8 +90,8 @@
         }
       },
       "frameworks": {
-        "netstandard2.0": {
-          "targetAlias": "netstandard2.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "MSTest.TestAdapter": {
               "target": "Package",
@@ -114,12 +104,6 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.5.0, )"
-            },
-            "NETStandard.Library": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.0.3, )",
-              "autoReferenced": true
             },
             "Xamarin.Essentials": {
               "target": "Package",
@@ -141,6 +125,11 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
