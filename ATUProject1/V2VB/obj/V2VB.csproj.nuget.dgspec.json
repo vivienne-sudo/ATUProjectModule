@@ -66,9 +66,9 @@
               "target": "Package",
               "version": "[1.0.0.1, )"
             },
-            "sqlite-net": {
+            "sqlite-net-pcl": {
               "target": "Package",
-              "version": "[1.6.292, )"
+              "version": "[1.8.116, )"
             }
           }
         }
