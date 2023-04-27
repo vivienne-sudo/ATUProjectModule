@@ -1,0 +1,72 @@
+﻿@model SalaryViewModel
+@{
+    ViewData["Title"] = "Salary Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Salary" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="UserProfileId" />
+
+    <div class="form-group">
+        <label asp-for="YearlySalary"></label>
+        <input asp-for="YearlySalary" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MonthlySalary"></label>
+        <input asp-for="MonthlySalary" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WeeklySalary"></label>
+        <input asp-for="WeeklySalary" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HourlyRate"></label>
+        <input asp-for="HourlyRate" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TaxObligation"></label>
+        <input asp-for="TaxObligation" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmployeePensionContributionPercentage"></label>
+        <input asp-for="EmployeePensionContributionPercentage" class="form-control" />
+        <span asp-validation-for="EmployeePensionContributionPercentage" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmployeePensionContribution"></label>
+        <input asp-for="EmployeePensionContribution" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmployerPensionContributionPercentage"></label>
+        <input asp-for="EmployerPensionContributionPercentage" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmployerPensionContribution"></label>
+        <input asp-for="EmployerPensionContribution" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PartnerIncome"></label>
+        <input asp-for="PartnerIncome" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TaxCategory"></label>
+        <input asp-for="TaxCategory" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>

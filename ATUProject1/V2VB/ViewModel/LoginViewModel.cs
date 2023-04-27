@@ -1,17 +1,9 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using V2VB.Services;
+using V2VB.Model;
+using Xamarin.Forms; 
 
 namespace V2VB.ViewModel
 {
@@ -53,16 +45,17 @@ namespace V2VB.ViewModel
             }
         }
 
-        public ICommand LoginCommand { get; }
+        public V2VB.Services.ICommand LoginCommand { get; }
 
         public LoginViewModel(IUserService userService, INavigationService navigationService)
         {
             _userService = userService;
             _navigationService = navigationService;
-            LoginCommand = new Command(async () => await LoginAsync());
-        }
+            LoginCommand = new V2VB.Services.Command(async () => await LoginAsync());
+        } 
 
-        private async Task LoginAsync()
+
+            private async Task LoginAsync()
         {
             var user = await _userService.AuthenticateAsync(Email, Password);
 
@@ -73,16 +66,17 @@ namespace V2VB.ViewModel
             }
 
             // Check if user is a company owner
-            if (user is CompanyOwner companyOwner)
+            if (user is User)
             {
                 // Save user session
-                // Navigate to company owner dashboard
+                // Navigate to employee dashboard
             }
             else
             {
                 // Display error message
             }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -91,5 +85,4 @@ namespace V2VB.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

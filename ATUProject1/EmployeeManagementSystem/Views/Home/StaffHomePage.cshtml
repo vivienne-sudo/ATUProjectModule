@@ -1,0 +1,58 @@
+﻿@model List<BankHoliday>
+@{
+    ViewData["Title"] = "Staff Home Page";
+}
+
+<h2>Staff Home Page</h2>
+
+<!-- Calendar -->
+<div id="calendar"></div>
+
+<!-- Annual Leave -->
+<div class="widget">
+    <h3>Annual Leave</h3>
+    <p>Days available: <span id="annualLeaveDays">0</span></p>
+    <button id="applyAnnualLeave">Apply for Annual Leave</button>
+</div>
+
+<!-- Sick Leave -->
+<div class="widget">
+    <h3>Sick Leave</h3>
+    <p>Days available: <span id="sickLeaveDays">0</span></p>
+    <button id="applySickLeave">Apply for Sick Leave</button>
+</div>
+
+<!-- Other widgets -->
+
+<script>
+    $(document).ready(function () {
+        // Initialize the calendar
+        $('#calendar').fullCalendar({
+            // Configure calendar options here
+            events: @Html.Raw(Json.Serialize(Model.Select(bh => new { title = "Bank Holiday", start = bh.Date.ToString("yyyy-MM-dd") })))
+        });
+
+        // Update available leave days
+        $('#annualLeaveDays').text(/* Get available annual leave days from the server */);
+        $('#sickLeaveDays').text(/* Get available sick leave days from the server */);
+
+        // Apply for leave buttons
+        $('#applyAnnualLeave').click(function () {
+            // Implement the logic for applying for annual leave
+        });
+
+        $('#applySickLeave').click(function () {
+            // Implement the logic for applying for sick leave
+        });
+    });
+</script>
+
+<style>
+    .widget {
+        border: 1px solid #ccc;
+        padding: 1rem;
+        display: inline-block;
+        margin-right: 1rem;
+        vertical-align: top;
+    }
+</style>
