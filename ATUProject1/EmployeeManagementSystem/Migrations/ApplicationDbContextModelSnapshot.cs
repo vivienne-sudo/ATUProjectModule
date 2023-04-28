@@ -142,9 +142,6 @@ namespace EmployeeManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("IdentityUser")
-                        .HasColumnType("text");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -176,7 +173,7 @@ namespace EmployeeManagementSystem.Migrations
 
                     b.HasKey("UserProfileId");
 
-                    b.HasIndex("IdentityUser");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserProfiles");
                 });
@@ -209,7 +206,7 @@ namespace EmployeeManagementSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "23ddf8af-e0d0-4cfc-969b-5d8e880234cc",
+                            Id = "6f1350b0-9c3c-420f-9acf-720f55cc6d94",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -385,7 +382,9 @@ namespace EmployeeManagementSystem.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("IdentityUser");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

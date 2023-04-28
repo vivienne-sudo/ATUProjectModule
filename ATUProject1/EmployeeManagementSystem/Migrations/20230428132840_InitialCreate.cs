@@ -179,7 +179,6 @@ namespace EmployeeManagementSystem.Migrations
                     UserProfileId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    IdentityUser = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     AddressLine1 = table.Column<string>(type: "text", nullable: false),
@@ -203,16 +202,17 @@ namespace EmployeeManagementSystem.Migrations
                 {
                     table.PrimaryKey("PK_UserProfiles", x => x.UserProfileId);
                     table.ForeignKey(
-                        name: "FK_UserProfiles_AspNetUsers_IdentityUser",
-                        column: x => x.IdentityUser,
+                        name: "FK_UserProfiles_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "23ddf8af-e0d0-4cfc-969b-5d8e880234cc", null, "Admin", "ADMIN" });
+                values: new object[] { "6f1350b0-9c3c-420f-9acf-720f55cc6d94", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "BankHolidays",
@@ -269,9 +269,9 @@ namespace EmployeeManagementSystem.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProfiles_IdentityUser",
+                name: "IX_UserProfiles_UserId",
                 table: "UserProfiles",
-                column: "IdentityUser");
+                column: "UserId");
         }
 
         /// <inheritdoc />

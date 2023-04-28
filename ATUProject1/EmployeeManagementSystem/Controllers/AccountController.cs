@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystem.Models;
+﻿using EmployeeManagementSystem.Data;
+using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,17 +13,20 @@ namespace EmployeeManagementSystem.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<AccountController> logger,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _roleManager = roleManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -195,24 +199,18 @@ namespace EmployeeManagementSystem.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
                 // Check if the user is a staff member
                 if (await _userManager.IsInRoleAsync(user, "Staff"))
                 {
-                    // Redirect the staff member to the profile form
-                    return RedirectToAction("Index", "Profile");
+                    // Set TempData value to indicate that the staff user needs to complete the profile form
+                    TempData["ShowProfileForm"] = true;
                 }
-                else
-                {
-                    // Redirect the admin user to the AdminHomePage
-                    return RedirectToAction("AdminHomePage", "YourController");
-                }
+
+                return RedirectToAction(nameof(Login));
             }
 
             return RedirectToAction(nameof(Login));
         }
-
     }
 }
 

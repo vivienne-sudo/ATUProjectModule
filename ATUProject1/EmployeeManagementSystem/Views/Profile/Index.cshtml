@@ -28,10 +28,26 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="RelationshipStatus"></label>
-        <select asp-for="RelationshipStatus" asp-items="@(new SelectList(new List<string> { "Single", "Married", "Divorced", "Widowed" }))" class="form-control"></select>
-        <span asp-validation-for="RelationshipStatus" class="text-danger"></span>
+        <label asp-for="TaxCategory">Tax Category</label>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.Single" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">Single</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.MarriedSingleIncome" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">Married with single income</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.MarriedTwoIncomes" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">Married with two incomes</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.OneParentFamily" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">One parent family</label>
+        </div>
+        <span asp-validation-for="TaxCategory" class="text-danger"></span>
     </div>
+
 
     <div class="form-group" id="partnerIncomeGroup" style="display:none;">
         <label asp-for="PartnerIncome" class="control-label"></label>
@@ -88,20 +104,21 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            var relationshipStatus = $("#RelationshipStatus");
+            var taxCategory = $("input[type=radio][name='TaxCategory']");
             var partnerIncomeGroup = $("#partnerIncomeGroup");
 
             function togglePartnerIncome() {
-                if (relationshipStatus.val() === "Married") {
+                if (taxCategory.filter(':checked').val() == '@TaxCategory.MarriedTwoIncomes') {
                     partnerIncomeGroup.show();
                 } else {
                     partnerIncomeGroup.hide();
                 }
             }
 
-            relationshipStatus.change(togglePartnerIncome);
+            taxCategory.change(togglePartnerIncome);
             togglePartnerIncome();
         });
+
     </script>
 }
 

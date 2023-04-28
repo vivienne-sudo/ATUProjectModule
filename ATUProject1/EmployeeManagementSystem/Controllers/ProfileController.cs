@@ -144,5 +144,79 @@ namespace EmployeeManagementSystem.Controllers
             return View(salaryViewModel);
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AllStaff()
+        {
+            var staffProfiles = await _context.UserProfiles.ToListAsync();
+            return View(staffProfiles);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditSalary(int? userProfileId)
+        {
+            if (userProfileId == null)
+            {
+                return NotFound();
+            }
+
+            var userProfile = await _context.UserProfiles.FindAsync(userProfileId);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            var editSalaryViewModel = new EditSalaryViewModel
+            {
+                UserProfileId = userProfile.UserProfileId,
+                YearlySalary = userProfile.YearlySalary
+            };
+
+            return View(editSalaryViewModel);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary")] EditSalaryViewModel editSalaryViewModel)
+        {
+            if (userProfileId != editSalaryViewModel.UserProfileId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var userProfile = await _context.UserProfiles.FindAsync(userProfileId);
+                userProfile.YearlySalary = editSalaryViewModel.YearlySalary;
+
+                try
+                {
+                    _context.Update(userProfile);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserProfileExists(userProfile.UserProfileId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(AllStaff));
+            }
+            return View(editSalaryViewModel);
+        }
+
+
+        private bool UserProfileExists(int userProfileId)
+        {
+            return _context.UserProfiles.Any(e => e.UserProfileId == userProfileId);
+        }
+
+
     }
 }

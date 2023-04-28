@@ -1,0 +1,22 @@
+﻿@model EditSalaryViewModel
+@{
+    ViewData["Title"] = "Edit Salary";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="EditSalary" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="YearlySalary"></label>
+        <input asp-for="YearlySalary" class="form-control" />
+        <span asp-validation-for="YearlySalary" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="UserProfileId" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>

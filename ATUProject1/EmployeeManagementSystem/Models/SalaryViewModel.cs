@@ -24,7 +24,6 @@
 
         public decimal? PartnerIncome { get; set; }
 
-        public string TaxCategory { get; set; }
     }
 
 }

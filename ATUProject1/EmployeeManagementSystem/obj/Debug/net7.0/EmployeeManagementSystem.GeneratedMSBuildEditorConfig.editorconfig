@@ -48,8 +48,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGFmZkhvbWVQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Vivie/source/repos/ATU Semester3/ATUProject1/EmployeeManagementSystem/Views/Profile/AllStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxBbGxTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Vivie/source/repos/ATU Semester3/ATUProject1/EmployeeManagementSystem/Views/Profile/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/source/repos/ATU Semester3/ATUProject1/EmployeeManagementSystem/Views/Profile/EditSalary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxFZGl0U2FsYXJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Vivie/source/repos/ATU Semester3/ATUProject1/EmployeeManagementSystem/Views/Profile/Index.cshtml]

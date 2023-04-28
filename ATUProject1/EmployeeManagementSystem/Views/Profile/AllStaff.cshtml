@@ -1,0 +1,41 @@
+﻿@model List<UserProfile>
+@{
+    ViewData["Title"] = "All Staff";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>PPSN</th>
+            <th>Date of Birth</th>
+            <th>Yearly Salary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var profile in Model)
+        {
+            <tr>
+                <td>@profile.FirstName</td>
+                <td>@profile.LastName</td>
+                <td>@profile.Gender</td>
+                <td>@profile.AddressLine1, @profile.AddressLine2, @profile.County, @profile.Eircode</td>
+                <td>@profile.PhoneNumber</td>
+                <td>@profile.PPSN</td>
+                <td>@profile.DateOfBirth.ToShortDateString()</td>
+                <td>@profile.YearlySalary</td>
+                <td>
+                    <a asp-action="EditSalary" asp-route-userProfileId="@profile.UserProfileId" class="btn btn-primary">Edit Salary</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
