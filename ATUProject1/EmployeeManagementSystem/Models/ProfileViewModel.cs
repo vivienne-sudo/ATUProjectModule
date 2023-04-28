@@ -49,13 +49,10 @@ namespace EmployeeManagementSystem.Models
         public string Gender { get; set; }
 
         [Required]
-        [Display(Name = "Relationship Status")]
-        public string RelationshipStatus { get; set; }
-
-        [Required]
         public decimal YearlySalary { get; set; }
 
-        [RequiredIfMarried]
+        [RequiredIfMarriedWithTwoIncomes]
+        [Display(Name = "Partner Income")]
         public decimal? PartnerIncome { get; set; }
 
         public string UserId { get; set; }

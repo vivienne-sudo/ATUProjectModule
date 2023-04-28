@@ -63,7 +63,8 @@ namespace EmployeeManagementSystem.Controllers
                     PPSN = model.PPSN,
                     DateOfBirth = model.DateOfBirth,
                     Gender = model.Gender,
-                    RelationshipStatus = model.RelationshipStatus
+                    PartnerIncome = model.PartnerIncome,
+                    TaxCategory = model.TaxCategory
                 };
 
                 // Save the UserProfile to the database
@@ -97,14 +98,21 @@ namespace EmployeeManagementSystem.Controllers
 
             return View(userProfile);
         }
-        public async Task<IActionResult> Salary()
+        public async Task<IActionResult> Salary(int? id)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userProfile = await _context.UserProfiles.SingleOrDefaultAsync(u => u.UserId == userId);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            // Perform the necessary calculations for tax, pension, and salary information
-            // ...
+            var userProfile = await _context.UserProfiles
+                .FirstOrDefaultAsync(m => m.UserProfileId == id);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
 
+            // Populate the SalaryViewModel properties
             var salaryViewModel = new SalaryViewModel
             {
                 UserProfileId = userProfile.UserProfileId,
@@ -117,7 +125,7 @@ namespace EmployeeManagementSystem.Controllers
                 EmployeePensionContribution = userProfile.EmployeePensionContribution,
                 EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage,
                 EmployerPensionContribution = userProfile.EmployerPensionContribution,
-                PartnerIncome = userProfile.PartnerIncome ?? 0
+                PartnerIncome = userProfile.PartnerIncome
             };
 
             return View(salaryViewModel);

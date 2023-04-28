@@ -45,11 +45,12 @@ namespace EmployeeManagementSystem.Models
         [Required]
         public string Gender { get; set; }
 
-        [Required]
-        public string RelationshipStatus { get; set; }
-
         public decimal YearlySalary { get; set; }
 
+        [Required]
+        [Display(Name = "Tax Category")]
+        public TaxCategory TaxCategory { get; set; }
+   
         public decimal TaxObligation { get; set; }
 
         [Required]
