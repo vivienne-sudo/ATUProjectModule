@@ -1,5 +1,4 @@
 ﻿using EmployeeManagementSystem.Attributes;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagementSystem.Models
@@ -54,7 +53,7 @@ namespace EmployeeManagementSystem.Models
         [RequiredIfMarriedWithTwoIncomes]
         [Display(Name = "Partner Income")]
         public decimal? PartnerIncome { get; set; }
-
+        public int UserProfileId { get; set; }
         public string UserId { get; set; }
 
         [Required]

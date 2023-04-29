@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -51,35 +50,72 @@ namespace EmployeeManagementSystem.Controllers
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
 
-                // Map the ProfileViewModel to a new UserProfile object
-                var userProfile = new UserProfile
-                {
-                    UserId = user.Id,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    AddressLine1 = model.AddressLine1,
-                    AddressLine2 = model.AddressLine2,
-                    County = model.County,
-                    Eircode = model.Eircode,
-                    PhoneNumber = model.PhoneNumber,
-                    PPSN = model.PPSN,
-                    DateOfBirth = model.DateOfBirth,
-                    Gender = model.Gender,
-                    PartnerIncome = model.PartnerIncome,
-                    TaxCategory = model.TaxCategory
-                };
+                // Find the existing UserProfile for the current user
+                var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.UserId == user.Id);
 
-                // Save the UserProfile to the database
-                _context.UserProfiles.Add(userProfile);
+                if (userProfile == null)
+                {
+                    // If UserProfile doesn't exist, create a new one
+                    userProfile = new UserProfile
+                    {
+                        UserId = user.Id
+                    };
+                    _context.UserProfiles.Add(userProfile);
+                }
+
+                // Update the UserProfile with the new data from the ProfileViewModel
+                userProfile.FirstName = model.FirstName;
+                userProfile.LastName = model.LastName;
+                userProfile.AddressLine1 = model.AddressLine1;
+                userProfile.AddressLine2 = model.AddressLine2;
+                userProfile.County = model.County;
+                userProfile.Eircode = model.Eircode;
+                userProfile.PhoneNumber = model.PhoneNumber;
+                userProfile.PPSN = model.PPSN;
+                userProfile.DateOfBirth = model.DateOfBirth;
+                userProfile.Gender = model.Gender;
+                userProfile.PartnerIncome = model.PartnerIncome;
+                userProfile.TaxCategory = model.TaxCategory;
+
+                // Save the changes to the database
                 await _context.SaveChangesAsync();
 
                 // After saving the user's profile data
                 return RedirectToAction("StaffHomePage", "Home");
-
             }
 
             return View(model);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var userProfile = await _context.UserProfiles.FindAsync(id);
+            if (userProfile == null)
+            {
+                return NotFound($"Unable to find user profile with ID '{id}'.");
+            }
+
+            var model = new ProfileViewModel
+            {
+                UserProfileId = userProfile.UserProfileId,
+                UserId = userProfile.UserId,
+                FirstName = userProfile.FirstName,
+                LastName = userProfile.LastName,
+                AddressLine1 = userProfile.AddressLine1,
+                AddressLine2 = userProfile.AddressLine2,
+                County = userProfile.County,
+                Eircode = userProfile.Eircode,
+                PhoneNumber = userProfile.PhoneNumber,
+                PPSN = userProfile.PPSN,
+                DateOfBirth = userProfile.DateOfBirth,
+                Gender = userProfile.Gender,
+                PartnerIncome = userProfile.PartnerIncome,
+                TaxCategory = userProfile.TaxCategory
+            };
+
+            return View("Index", model);
+        }
+
 
         [Authorize]
         public async Task<IActionResult> Details()
@@ -218,6 +254,7 @@ namespace EmployeeManagementSystem.Controllers
             }
             return View(editSalaryViewModel);
         }
+        
 
     }
 }
