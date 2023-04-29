@@ -14,6 +14,7 @@ namespace EmployeeManagementSystem.Data
         {
             _configuration = configuration;
         }
+        public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
 

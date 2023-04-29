@@ -124,8 +124,14 @@ namespace EmployeeManagementSystem.Controllers
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
+                    bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 
-                    if (await _userProfileService.UserProfileExists(user.Id))
+                    if (isAdmin)
+                    {
+                        // Redirect the admin user to the AdminHomePage
+                        return RedirectToAction("AdminHomePage", "Home");
+                    }
+                    else if (await _userProfileService.UserProfileExists(user.Id))
                     {
                         // Redirect to StaffHomePage if the user has an existing profile
                         return RedirectToAction("StaffHomePage", "Home");
@@ -154,6 +160,7 @@ namespace EmployeeManagementSystem.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
 
 
         [HttpGet]

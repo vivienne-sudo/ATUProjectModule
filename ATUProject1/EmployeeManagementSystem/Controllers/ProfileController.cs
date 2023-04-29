@@ -20,6 +20,28 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userProfileService = userProfileService;
         }
+        private async Task CreateNotificationAsync(string message)
+        {
+            // Get the list of admin users
+            var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+
+            // Create a new notification for each admin
+            foreach (var adminUser in adminUsers)
+            {
+                var notification = new Notification
+                {
+                    AdminId = adminUser.Id,
+                    StaffUserId = _userManager.GetUserId(User),
+                    Message = message,
+                    IsViewed = false,
+                    Timestamp = DateTime.Now
+                };
+
+                _context.Notifications.Add(notification);
+            }
+
+            await _context.SaveChangesAsync();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -80,7 +102,7 @@ namespace EmployeeManagementSystem.Controllers
                 // Save the changes to the database
                 await _context.SaveChangesAsync();
 
-                // After saving the user's profile data
+                await CreateNotificationAsync($"User with ID '{user.Id}' has updated their profile.");
                 return RedirectToAction("StaffHomePage", "Home");
             }
 
