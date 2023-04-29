@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using EmployeeManagementSystem.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using EmployeeManagementSystem.Controllers;
 
 namespace EmployeeManagementSystem
 {
@@ -41,6 +42,8 @@ namespace EmployeeManagementSystem
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<UserProfileService>();
+
 
             var app = builder.Build();
 

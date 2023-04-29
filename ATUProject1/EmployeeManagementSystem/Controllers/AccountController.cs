@@ -14,19 +14,23 @@ namespace EmployeeManagementSystem.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _context;
-
+        private readonly UserProfileService _userProfileService;
+  
         public AccountController(
+            UserProfileService userProfileService,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<AccountController> logger,
             RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context)
         {
+            _userProfileService = userProfileService;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _roleManager = roleManager;
             _context = context;
+          
         }
 
         [HttpGet]
@@ -119,19 +123,17 @@ namespace EmployeeManagementSystem.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-
                     var user = await _userManager.FindByEmailAsync(model.Email);
 
-                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    if (await _userProfileService.UserProfileExists(user.Id))
                     {
-                        // Redirect the admin user to the AdminHomePage
-                        return RedirectToAction("AdminHomePage", "Home");
+                        // Redirect to StaffHomePage if the user has an existing profile
+                        return RedirectToAction("StaffHomePage", "Home");
                     }
                     else
                     {
-                        // Redirect the staff member to the StaffHomePage
-                        return RedirectToAction("Index", "Profile");
+                        // Redirect to Profile form if the user does not have an existing profile
+                        return RedirectToAction("Index", "Profile", new { userId = user.Id });
                     }
                 }
 
@@ -152,7 +154,6 @@ namespace EmployeeManagementSystem.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
 
 
         [HttpGet]

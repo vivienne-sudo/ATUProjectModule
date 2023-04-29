@@ -13,11 +13,13 @@ namespace EmployeeManagementSystem.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly UserProfileService _userProfileService;
 
-        public ProfileController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public ProfileController(UserProfileService userProfileService, UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
+            _userProfileService = userProfileService;
         }
 
         [HttpGet]
@@ -182,8 +184,6 @@ namespace EmployeeManagementSystem.Controllers
             return View(editSalaryViewModel);
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary")] EditSalaryViewModel editSalaryViewModel)
@@ -205,7 +205,7 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserProfileExists(userProfile.UserProfileId))
+                    if (!await _userProfileService.UserProfileExists(userProfile.UserProfileId))
                     {
                         return NotFound();
                     }
@@ -218,13 +218,6 @@ namespace EmployeeManagementSystem.Controllers
             }
             return View(editSalaryViewModel);
         }
-
-
-        private bool UserProfileExists(int userProfileId)
-        {
-            return _context.UserProfiles.Any(e => e.UserProfileId == userProfileId);
-        }
-
 
     }
 }
