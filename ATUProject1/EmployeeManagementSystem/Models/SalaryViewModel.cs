@@ -13,15 +13,8 @@
 
         public TaxCategory TaxCategory { get; set; }
         public decimal TaxCredit { get; set; }
-        public decimal YearlySalary { get; set; }
 
-        public decimal MonthlySalary { get; set; }
-
-        public decimal WeeklySalary { get; set; }
-
-        public decimal HourlyRate { get; set; }
-
-        public decimal TaxObligation { get; set; }
+        public decimal TaxLiability { get; set; }
 
         public decimal EmployeePensionContributionPercentage { get; set; }
 
@@ -32,7 +25,5 @@
         public decimal EmployerPensionContribution { get; set; }
 
         public decimal? PartnerIncome { get; set; }
-
     }
-
 }

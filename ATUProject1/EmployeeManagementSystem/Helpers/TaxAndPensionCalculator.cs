@@ -11,10 +11,9 @@ namespace EmployeeManagementSystem.Helpers
             MarriedTwoIncomes,
             OneParentFamily
         }
-
         public static decimal CalculateTax(decimal yearlySalary, decimal employeePensionContributionPercentage, decimal taxCredit, decimal partnerIncome, TaxCategory taxCategory)
         {
-            decimal pensionContribution = yearlySalary * employeePensionContributionPercentage;
+            decimal pensionContribution = yearlySalary * (employeePensionContributionPercentage / 100);
             decimal taxableIncome = yearlySalary - pensionContribution;
 
             if (taxCategory == TaxCategory.MarriedTwoIncomes)

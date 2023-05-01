@@ -206,78 +206,96 @@ namespace EmployeeManagementSystem.Controllers
             return View(userProfile);
         }
 
-        public async Task<IActionResult> Salary(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Salary(int? userProfileId)
         {
-            if (id == null)
+            if (userProfileId == null)
             {
                 return NotFound();
             }
 
-            var userProfile = await _context.UserProfiles
-                .FirstOrDefaultAsync(m => m.UserProfileId == id);
+            var userProfile = await _context.UserProfiles.FindAsync(userProfileId);
             if (userProfile == null)
             {
                 return NotFound();
             }
 
-            // Populate the SalaryViewModel properties
-            var salaryViewModel = new SalaryViewModel
-            {
-                UserProfileId = userProfile.UserProfileId,
-                YearlySalary = userProfile.YearlySalary,
-                EmployeePensionContributionPercentage = userProfile.EmployeePensionContributionPercentage,
-                EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage,
-                TaxCredit = userProfile.TaxCredit,
-                PartnerIncome = userProfile.PartnerIncome,
-                TaxCategory = userProfile.TaxCategory
-            };
+            // Create a new instance of SalaryViewModel
+            var salaryViewModel = new SalaryViewModel();
+
+            // Set the necessary properties of the instance
+            salaryViewModel.TaxCredit = userProfile.TaxCredit;
+            salaryViewModel.PartnerIncome = userProfile.PartnerIncome;
+            salaryViewModel.TaxCategory = userProfile.TaxCategory;
+
+            // Calculate the tax liability, net salary, and pension contributions
+            decimal taxLiability = TaxAndPensionCalculator.CalculateTax(
+    userProfile.YearlySalary,
+    userProfile.EmployeePensionContributionPercentage,
+    salaryViewModel.TaxCredit,
+    salaryViewModel.PartnerIncome ?? 0,
+    salaryViewModel.TaxCategory
+);
+
+            decimal employeePensionContribution = userProfile.YearlySalary * (userProfile.EmployeePensionContributionPercentage / 100);
+            decimal employerPensionContribution = userProfile.YearlySalary * (userProfile.EmployerPensionContributionPercentage / 100);
+            // ...
+            decimal netYearlySalary = userProfile.YearlySalary - taxLiability - employeePensionContribution;
+
+            // Update the SalaryViewModel with the calculated values
+            salaryViewModel.UserProfileId = userProfile.UserProfileId;
+            salaryViewModel.GrossYearlySalary = userProfile.YearlySalary;
+            salaryViewModel.NetYearlySalary = netYearlySalary;
+            salaryViewModel.GrossMonthlySalary = userProfile.YearlySalary / 12;
+            salaryViewModel.NetMonthlySalary = netYearlySalary / 12;
+            salaryViewModel.GrossWeeklySalary = userProfile.YearlySalary / 52;
+            salaryViewModel.NetWeeklySalary = netYearlySalary / 52;
+            salaryViewModel.TaxLiability = taxLiability;
+            salaryViewModel.EmployeePensionContributionPercentage = userProfile.EmployeePensionContributionPercentage;
+            salaryViewModel.EmployeePensionContribution = employeePensionContribution;
+            salaryViewModel.EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage;
+            salaryViewModel.EmployerPensionContribution = employerPensionContribution;
 
             return View(salaryViewModel);
         }
+
 
         [HttpPost]
-        public async Task<IActionResult> Salary(SalaryViewModel salaryViewModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Salary(int userProfileId, [Bind("UserProfileId,GrossYearlySalary,NetYearlySalary,GrossMonthlySalary,NetMonthlySalary,GrossWeeklySalary,NetWeeklySalary,TaxCategory,TaxCredit,TaxLiability,EmployeePensionContributionPercentage,EmployeePensionContribution,EmployerPensionContributionPercentage,EmployerPensionContribution,PartnerIncome")] SalaryViewModel salaryViewModel)
         {
-            if (ModelState.IsValid)
+            if (userProfileId != salaryViewModel.UserProfileId)
             {
-                var userProfile = await _context.UserProfiles.SingleOrDefaultAsync(u => u.UserProfileId == salaryViewModel.UserProfileId);
-
-                // Update only the allowed properties
-                userProfile.EmployeePensionContributionPercentage = salaryViewModel.EmployeePensionContributionPercentage;
-
-                // Calculate taxes
-                decimal taxObligation = TaxAndPensionCalculator.CalculateTax(
-                    salaryViewModel.YearlySalary,
-                    salaryViewModel.EmployeePensionContributionPercentage,
-                    userProfile.TaxCredit,
-                    userProfile.PartnerIncome ?? 0,
-                    userProfile.TaxCategory
-                );
-
-                // Calculate pension contributions
-                decimal employeePensionContribution = salaryViewModel.YearlySalary * salaryViewModel.EmployeePensionContributionPercentage;
-                decimal employerPensionContribution = salaryViewModel.YearlySalary * userProfile.EmployerPensionContributionPercentage;
-
-                // Calculate gross and net salary
-                salaryViewModel.GrossYearlySalary = salaryViewModel.YearlySalary;
-                salaryViewModel.NetYearlySalary = salaryViewModel.YearlySalary - taxObligation - employeePensionContribution;
-                salaryViewModel.GrossMonthlySalary = salaryViewModel.YearlySalary / 12;
-                salaryViewModel.NetMonthlySalary = salaryViewModel.NetYearlySalary / 12;
-                salaryViewModel.GrossWeeklySalary = salaryViewModel.YearlySalary / 52;
-                salaryViewModel.NetWeeklySalary = salaryViewModel.NetYearlySalary / 52;
-
-                userProfile.TaxObligation = taxObligation;
-                userProfile.EmployeePensionContribution = employeePensionContribution;
-                userProfile.EmployerPensionContribution = employerPensionContribution;
-
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Salary));
+                return NotFound();
             }
 
-            return View(salaryViewModel);
-        }
+            if (ModelState.IsValid)
+            {
+                var userProfile = await _context.UserProfiles.FindAsync(userProfileId);
+                userProfile.YearlySalary = salaryViewModel.GrossYearlySalary;
+                userProfile.EmployeePensionContributionPercentage = salaryViewModel.EmployeePensionContributionPercentage;
+                userProfile.EmployerPensionContributionPercentage = salaryViewModel.EmployerPensionContributionPercentage;
 
+                try
+                {
+                    _context.Update(userProfile);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await _userProfileService.UserProfileExists(userProfile.UserProfileId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Salary), new { userProfileId = salaryViewModel.UserProfileId });
+            }
+                return View(salaryViewModel);
+        }
 
 
         [Authorize(Roles = "Admin")]
