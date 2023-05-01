@@ -5,7 +5,7 @@
 namespace EmployeeManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class TaxCategoryfix : Migration
+    public partial class Removeusername : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -13,23 +13,16 @@ namespace EmployeeManagementSystem.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "6f1350b0-9c3c-420f-9acf-720f55cc6d94");
+                keyValue: "24064e60-1caa-48d2-ba07-b2a72a7ef209");
 
             migrationBuilder.DropColumn(
-                name: "RelationshipStatus",
-                table: "UserProfiles");
-
-            migrationBuilder.AddColumn<int>(
-                name: "TaxCategory",
-                table: "UserProfiles",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
+                name: "UserName",
+                table: "Notifications");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b816597e-fc8f-459f-8d6e-ed812769df43", null, "Admin", "ADMIN" });
+                values: new object[] { "7b78d5ce-a6af-426c-96d1-d935ea11125f", null, "Admin", "ADMIN" });
         }
 
         /// <inheritdoc />
@@ -38,15 +31,11 @@ namespace EmployeeManagementSystem.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "b816597e-fc8f-459f-8d6e-ed812769df43");
-
-            migrationBuilder.DropColumn(
-                name: "TaxCategory",
-                table: "UserProfiles");
+                keyValue: "7b78d5ce-a6af-426c-96d1-d935ea11125f");
 
             migrationBuilder.AddColumn<string>(
-                name: "RelationshipStatus",
-                table: "UserProfiles",
+                name: "UserName",
+                table: "Notifications",
                 type: "text",
                 nullable: false,
                 defaultValue: "");
@@ -54,7 +43,7 @@ namespace EmployeeManagementSystem.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "6f1350b0-9c3c-420f-9acf-720f55cc6d94", null, "Admin", "ADMIN" });
+                values: new object[] { "24064e60-1caa-48d2-ba07-b2a72a7ef209", null, "Admin", "ADMIN" });
         }
     }
 }

@@ -67,6 +67,24 @@ namespace EmployeeManagementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AdminId = table.Column<string>(type: "text", nullable: false),
+                    StaffUserId = table.Column<string>(type: "text", nullable: false),
+                    UserName = table.Column<string>(type: "text", nullable: false),
+                    Message = table.Column<string>(type: "text", nullable: false),
+                    IsViewed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -189,8 +207,8 @@ namespace EmployeeManagementSystem.Migrations
                     PPSN = table.Column<string>(type: "text", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
-                    RelationshipStatus = table.Column<string>(type: "text", nullable: false),
                     YearlySalary = table.Column<decimal>(type: "TEXT", nullable: false),
+                    TaxCategory = table.Column<int>(type: "INTEGER", nullable: false),
                     TaxObligation = table.Column<decimal>(type: "TEXT", nullable: false),
                     EmployeePensionContributionPercentage = table.Column<decimal>(type: "TEXT", nullable: false),
                     EmployeePensionContribution = table.Column<decimal>(type: "TEXT", nullable: false),
@@ -212,7 +230,7 @@ namespace EmployeeManagementSystem.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "6f1350b0-9c3c-420f-9acf-720f55cc6d94", null, "Admin", "ADMIN" });
+                values: new object[] { "757cf75b-f39f-4bc3-8916-ec589dca65a1", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "BankHolidays",
@@ -294,6 +312,9 @@ namespace EmployeeManagementSystem.Migrations
 
             migrationBuilder.DropTable(
                 name: "BankHolidays");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "UserProfiles");

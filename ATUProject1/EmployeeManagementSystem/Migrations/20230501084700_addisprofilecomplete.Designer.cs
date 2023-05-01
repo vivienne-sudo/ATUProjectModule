@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230428163027_TaxCategoryfix")]
-    partial class TaxCategoryfix
+    [Migration("20230501084700_addisprofilecomplete")]
+    partial class addisprofilecomplete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +100,39 @@ namespace EmployeeManagementSystem.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EmployeeManagementSystem.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AdminId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsViewed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("StaffUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("EmployeeManagementSystem.Models.UserProfile", b =>
                 {
                     b.Property<int>("UserProfileId")
@@ -144,6 +177,9 @@ namespace EmployeeManagementSystem.Migrations
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsProfileComplete")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -208,7 +244,7 @@ namespace EmployeeManagementSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b816597e-fc8f-459f-8d6e-ed812769df43",
+                            Id = "24064e60-1caa-48d2-ba07-b2a72a7ef209",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

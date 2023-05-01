@@ -63,7 +63,9 @@ namespace EmployeeManagementSystem.Models
 
         public decimal EmployerPensionContribution { get; set; }
         public decimal? PartnerIncome { get; set; }
-        
+
+        public bool IsProfileComplete { get; set; }
+
 
         // Calculated properties
         [NotMapped]

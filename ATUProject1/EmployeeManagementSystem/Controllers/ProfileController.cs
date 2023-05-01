@@ -20,7 +20,7 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userProfileService = userProfileService;
         }
-        private async Task CreateNotificationAsync(string message)
+        private async Task CreateNotificationAsync(string message, string firstName, string lastName)
         {
             // Get the list of admin users
             var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
@@ -32,7 +32,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     AdminId = adminUser.Id,
                     StaffUserId = _userManager.GetUserId(User),
-                    Message = message,
+                    Message = $"{firstName} {lastName}: {message}",
                     IsViewed = false,
                     Timestamp = DateTime.Now
                 };
@@ -44,7 +44,7 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string userId)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -58,6 +58,8 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+
+        // ...
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,7 +77,9 @@ namespace EmployeeManagementSystem.Controllers
                 // Find the existing UserProfile for the current user
                 var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.UserId == user.Id);
 
-                if (userProfile == null)
+                bool isFirstTimeProfileCompletion = userProfile == null;
+
+                if (isFirstTimeProfileCompletion)
                 {
                     // If UserProfile doesn't exist, create a new one
                     userProfile = new UserProfile
@@ -102,12 +106,38 @@ namespace EmployeeManagementSystem.Controllers
                 // Save the changes to the database
                 await _context.SaveChangesAsync();
 
-                await CreateNotificationAsync($"User with ID '{user.Id}' has updated their profile.");
+                var userName = $"{userProfile.FirstName} {userProfile.LastName}";
+
+                // Check if this is the first time the user is completing their profile
+                if (isFirstTimeProfileCompletion)
+                {
+                    // Send a notification to the admin
+                    await CreateNotificationAsync($"User {userProfile.FirstName} {userProfile.LastName} has created their profile.", userProfile.FirstName, userProfile.LastName);
+                }
+                else
+                {
+                    await CreateNotificationAsync($"User {userProfile.FirstName} {userProfile.LastName} has updated their profile.", userProfile.FirstName, userProfile.LastName);
+                }
+
+                // Get the roles of the user
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                // Check if the user is an admin
+                if (userRoles.Contains("Admin"))
+                {
+                    // Redirect to the admin homepage
+                    return RedirectToAction("AdminHomePage", "Home");
+                }
+
+                // Redirect to the staff homepage for non-admin users
                 return RedirectToAction("StaffHomePage", "Home");
             }
 
             return View(model);
         }
+
+        // ...
+
 
         public async Task<IActionResult> Edit(int id)
         {

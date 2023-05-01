@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
 using System.Diagnostics;
 
 namespace EmployeeManagementSystem.Controllers
@@ -23,11 +24,26 @@ namespace EmployeeManagementSystem.Controllers
             _signInManager = signInManager;
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdminHomePage()
+ 
+
+    [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminHomePage()
         {
-            return View();
+            var currentAdmin = await _userManager.GetUserAsync(User);
+            if (currentAdmin == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var notifications = await _dbContext.Notifications
+                .Where(n => n.AdminId == currentAdmin.Id && !n.IsViewed)
+                .OrderByDescending(n => n.Timestamp)
+                .ToListAsync();
+
+            return View(notifications);
         }
+
+
 
         public async Task<IActionResult> Index()
         {

@@ -1,10 +1,8 @@
 ﻿using EmployeeManagementSystem.Data;
-using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -44,6 +42,15 @@ namespace EmployeeManagementSystem.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> ViewedNotifications()
+        {
+            var viewedNotifications = await _context.Notifications
+                .Where(n => n.IsViewed)
+                .ToListAsync();
+
+            return View(viewedNotifications);
+        }
+
     }
 }
 

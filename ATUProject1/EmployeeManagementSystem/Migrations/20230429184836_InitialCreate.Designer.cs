@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230429163157_Notifications")]
-    partial class Notifications
+    [Migration("20230429184836_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,6 +123,10 @@ namespace EmployeeManagementSystem.Migrations
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -237,7 +241,7 @@ namespace EmployeeManagementSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e5e4693-486f-4494-9e0c-503eca58deb8",
+                            Id = "757cf75b-f39f-4bc3-8916-ec589dca65a1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

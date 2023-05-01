@@ -171,6 +171,9 @@ namespace EmployeeManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsProfileComplete")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -234,7 +237,7 @@ namespace EmployeeManagementSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e5e4693-486f-4494-9e0c-503eca58deb8",
+                            Id = "7b78d5ce-a6af-426c-96d1-d935ea11125f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

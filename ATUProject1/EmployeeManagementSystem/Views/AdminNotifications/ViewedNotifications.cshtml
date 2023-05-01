@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<EmployeeManagementSystem.Models.Notification>
 
 @{
-    ViewData["Title"] = "Admin Notifications";
+    ViewData["Title"] = "Viewed Notifications";
 }
 
-<h1>Admin Notifications</h1>
+<h1>Viewed Notifications</h1>
 
 <table class="table">
     <thead>
@@ -12,7 +12,6 @@
             <th>Message</th>
             <th>Date</th>
             <th>Status</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,18 +21,8 @@
                 <td>@notification.Message</td>
                 <td>@notification.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>@(notification.IsViewed ? "Viewed" : "Unviewed")</td>
-                <td>
-                    @if (!notification.IsViewed)
-                    {
-                        <form asp-controller="AdminNotifications" asp-action="MarkAsViewed" method="post">
-                            <input type="hidden" asp-for="@notification.Id" name="id" />
-                            <button type="submit" class="btn btn-primary">Mark as Viewed</button>
-                        </form>
-
-                    }
-                </td>
             </tr>
         }
     </tbody>
-
 </table>
+
