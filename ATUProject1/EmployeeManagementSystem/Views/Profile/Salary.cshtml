@@ -9,7 +9,36 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <input type="hidden" asp-for="UserProfileId" />
+    <!-- Add these new form groups to display gross and net salary -->
+<div class="form-group">
+    <label asp-for="GrossYearlySalary">Gross Yearly Salary</label>
+    <input asp-for="GrossYearlySalary" class="form-control" readonly />
+</div>
 
+<div class="form-group">
+    <label asp-for="NetYearlySalary">Net Yearly Salary</label>
+    <input asp-for="NetYearlySalary" class="form-control" readonly />
+</div>
+
+<div class="form-group">
+    <label asp-for="GrossMonthlySalary">Gross Monthly Salary</label>
+    <input asp-for="GrossMonthlySalary" class="form-control" readonly />
+</div>
+
+<div class="form-group">
+    <label asp-for="NetMonthlySalary">Net Monthly Salary</label>
+    <input asp-for="NetMonthlySalary" class="form-control" readonly />
+</div>
+
+    <div class="form-group">
+        <label asp-for="GrossWeeklySalary">Gross Weekly Salary</label>
+        <input asp-for="GrossWeeklySalary" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NetWeeklySalary">Net Weekly Salary</label>
+        <input asp-for="NetWeeklySalary" class="form-control" readonly />
+    </div>
     <div class="form-group">
         <label asp-for="YearlySalary"></label>
         <input asp-for="YearlySalary" class="form-control" readonly />

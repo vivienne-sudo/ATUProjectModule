@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.Data;
+using EmployeeManagementSystem.Helpers;
 using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,28 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userProfileService = userProfileService;
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Contract(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var userProfile = await _context.UserProfiles
+                .FirstOrDefaultAsync(m => m.UserId == id);
+
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(userProfile); 
+        }
+
+
         private async Task CreateNotificationAsync(string message, string firstName, string lastName)
         {
             // Get the list of admin users
@@ -57,9 +80,6 @@ namespace EmployeeManagementSystem.Controllers
 
             return View();
         }
-
-
-        // ...
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -136,9 +156,6 @@ namespace EmployeeManagementSystem.Controllers
             return View(model);
         }
 
-        // ...
-
-
         public async Task<IActionResult> Edit(int id)
         {
             var userProfile = await _context.UserProfiles.FindAsync(id);
@@ -188,6 +205,7 @@ namespace EmployeeManagementSystem.Controllers
 
             return View(userProfile);
         }
+
         public async Task<IActionResult> Salary(int? id)
         {
             if (id == null)
@@ -207,15 +225,11 @@ namespace EmployeeManagementSystem.Controllers
             {
                 UserProfileId = userProfile.UserProfileId,
                 YearlySalary = userProfile.YearlySalary,
-                MonthlySalary = userProfile.MonthlySalary,
-                WeeklySalary = userProfile.WeeklySalary,
-                HourlyRate = userProfile.HourlyRate,
-                TaxObligation = userProfile.TaxObligation,
                 EmployeePensionContributionPercentage = userProfile.EmployeePensionContributionPercentage,
-                EmployeePensionContribution = userProfile.EmployeePensionContribution,
                 EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage,
-                EmployerPensionContribution = userProfile.EmployerPensionContribution,
-                PartnerIncome = userProfile.PartnerIncome
+                TaxCredit = userProfile.TaxCredit,
+                PartnerIncome = userProfile.PartnerIncome,
+                TaxCategory = userProfile.TaxCategory
             };
 
             return View(salaryViewModel);
@@ -231,8 +245,30 @@ namespace EmployeeManagementSystem.Controllers
                 // Update only the allowed properties
                 userProfile.EmployeePensionContributionPercentage = salaryViewModel.EmployeePensionContributionPercentage;
 
-                // Perform the necessary calculations for tax, pension, and salary information
-                // ...
+                // Calculate taxes
+                decimal taxObligation = TaxAndPensionCalculator.CalculateTax(
+                    salaryViewModel.YearlySalary,
+                    salaryViewModel.EmployeePensionContributionPercentage,
+                    userProfile.TaxCredit,
+                    userProfile.PartnerIncome ?? 0,
+                    userProfile.TaxCategory
+                );
+
+                // Calculate pension contributions
+                decimal employeePensionContribution = salaryViewModel.YearlySalary * salaryViewModel.EmployeePensionContributionPercentage;
+                decimal employerPensionContribution = salaryViewModel.YearlySalary * userProfile.EmployerPensionContributionPercentage;
+
+                // Calculate gross and net salary
+                salaryViewModel.GrossYearlySalary = salaryViewModel.YearlySalary;
+                salaryViewModel.NetYearlySalary = salaryViewModel.YearlySalary - taxObligation - employeePensionContribution;
+                salaryViewModel.GrossMonthlySalary = salaryViewModel.YearlySalary / 12;
+                salaryViewModel.NetMonthlySalary = salaryViewModel.NetYearlySalary / 12;
+                salaryViewModel.GrossWeeklySalary = salaryViewModel.YearlySalary / 52;
+                salaryViewModel.NetWeeklySalary = salaryViewModel.NetYearlySalary / 52;
+
+                userProfile.TaxObligation = taxObligation;
+                userProfile.EmployeePensionContribution = employeePensionContribution;
+                userProfile.EmployerPensionContribution = employerPensionContribution;
 
                 await _context.SaveChangesAsync();
 
@@ -241,6 +277,8 @@ namespace EmployeeManagementSystem.Controllers
 
             return View(salaryViewModel);
         }
+
+
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AllStaff()
@@ -266,7 +304,10 @@ namespace EmployeeManagementSystem.Controllers
             var editSalaryViewModel = new EditSalaryViewModel
             {
                 UserProfileId = userProfile.UserProfileId,
-                YearlySalary = userProfile.YearlySalary
+                YearlySalary = userProfile.YearlySalary,
+                Position = userProfile.Position,
+                StartDate = userProfile.StartDate == DateTime.MinValue ? DateTime.Now : userProfile.StartDate,
+                EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage
             };
 
             return View(editSalaryViewModel);
@@ -274,7 +315,7 @@ namespace EmployeeManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary")] EditSalaryViewModel editSalaryViewModel)
+        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary,Position,StartDate,EmployerPensionContributionPercentage")] EditSalaryViewModel editSalaryViewModel)
         {
             if (userProfileId != editSalaryViewModel.UserProfileId)
             {
@@ -285,6 +326,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 var userProfile = await _context.UserProfiles.FindAsync(userProfileId);
                 userProfile.YearlySalary = editSalaryViewModel.YearlySalary;
+                userProfile.Position = editSalaryViewModel.Position;
+                userProfile.StartDate = editSalaryViewModel.StartDate;
+                userProfile.EmployerPensionContributionPercentage = editSalaryViewModel.EmployerPensionContributionPercentage; // Fix this line
 
                 try
                 {
@@ -306,7 +350,6 @@ namespace EmployeeManagementSystem.Controllers
             }
             return View(editSalaryViewModel);
         }
-        
 
     }
 }

@@ -1,9 +1,10 @@
-﻿@model List<BankHoliday>
+﻿@model StaffHomePageViewModel
 @{
     ViewData["Title"] = "Staff Home Page";
 }
 
 <h2>Staff Home Page</h2>
+<a asp-controller="Profile" asp-action="Contract" asp-route-id="@Model.UserProfileId">View Contract</a>
 
 <!-- Calendar -->
 <div id="calendar"></div>
@@ -29,8 +30,8 @@
         // Initialize the calendar
         $('#calendar').fullCalendar({
             // Configure calendar options here
-            events: @Html.Raw(Json.Serialize(Model.Select(bh => new { title = "Bank Holiday", start = bh.Date.ToString("yyyy-MM-dd") })))
-        });
+            events: @Html.Raw(Json.Serialize(Model.BankHolidays.Select(bh => new { title = "Bank Holiday", start = bh.Date.ToString("yyyy-MM-dd") })))
+       });
 
         // Update available leave days
         $('#annualLeaveDays').text(/* Get available annual leave days from the server */);

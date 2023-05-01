@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.Helpers
+﻿using EmployeeManagementSystem.Models;
+
+namespace EmployeeManagementSystem.Helpers
 {
     public static class TaxAndPensionCalculator
     {
@@ -10,40 +12,57 @@
             OneParentFamily
         }
 
-        public static decimal CalculateTax(decimal yearlySalary, decimal taxCredit, decimal partnerIncome, MaritalStatus maritalStatus)
+        public static decimal CalculateTax(decimal yearlySalary, decimal employeePensionContributionPercentage, decimal taxCredit, decimal partnerIncome, TaxCategory taxCategory)
         {
-            decimal standardTaxRate = 0.2m; // 20%
-            decimal higherTaxRate = 0.4m; // 40%
+            decimal pensionContribution = yearlySalary * employeePensionContributionPercentage;
+            decimal taxableIncome = yearlySalary - pensionContribution;
 
-            decimal taxRateCutOff;
-
-            switch (maritalStatus)
+            if (taxCategory == TaxCategory.MarriedTwoIncomes)
             {
-                case MaritalStatus.Single:
-                    taxRateCutOff = 35300; // The cut-off point for the 20% tax rate
-                    break;
-                case MaritalStatus.MarriedSingleIncome:
-                    taxRateCutOff = 49000; // The cut-off point for the 20% tax rate
-                    break;
-                case MaritalStatus.MarriedTwoIncomes:
-                    decimal lowerSpouseIncome = Math.Min(yearlySalary, partnerIncome);
-                    decimal maxAdditionalCutOff = 31000;
-                    taxRateCutOff = 49000 + Math.Min(maxAdditionalCutOff, lowerSpouseIncome);
-                    break;
-                case MaritalStatus.OneParentFamily:
-                    taxRateCutOff = 38300; // The cut-off point for the 20% tax rate
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(maritalStatus), maritalStatus, null);
+                taxableIncome += partnerIncome;
+                taxCredit *= 2;
             }
 
-            decimal taxableIncome = yearlySalary > taxRateCutOff ? taxRateCutOff : yearlySalary;
-            decimal higherTaxableIncome = yearlySalary > taxRateCutOff ? yearlySalary - taxRateCutOff : 0;
+            decimal totalTax = 0;
+            decimal remainingIncome = taxableIncome - taxCredit;
 
-            decimal tax = (taxableIncome * standardTaxRate) + (higherTaxableIncome * higherTaxRate) - taxCredit;
+            // Tax brackets
+            decimal[] taxBrackets;
 
-            return tax;
+            switch (taxCategory)
+            {
+                case TaxCategory.Single:
+                    taxBrackets = new[] { 40000m, remainingIncome };
+                    break;
+                case TaxCategory.OneParentFamily:
+                    taxBrackets = new[] { 44000m, remainingIncome };
+                    break;
+                case TaxCategory.MarriedSingleIncome:
+                    taxBrackets = new[] { 49000m, remainingIncome };
+                    break;
+                case TaxCategory.MarriedTwoIncomes:
+                    decimal lowerBracket = Math.Min(31000m, partnerIncome);
+                    taxBrackets = new[] { 49000m + lowerBracket, remainingIncome };
+                    break;
+                default:
+                    throw new ArgumentException("Invalid tax category");
+            }
+
+            if (remainingIncome > 0)
+            {
+                decimal taxedAt20Percent = Math.Min(remainingIncome, taxBrackets[0]);
+                totalTax += taxedAt20Percent * 0.20m;
+                remainingIncome -= taxedAt20Percent;
+            }
+
+            if (remainingIncome > 0)
+            {
+                totalTax += remainingIncome * 0.40m;
+            }
+
+            return totalTax;
         }
     }
 }
+
 

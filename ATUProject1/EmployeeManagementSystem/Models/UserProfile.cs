@@ -53,6 +53,13 @@ namespace EmployeeManagementSystem.Models
    
         public decimal TaxObligation { get; set; }
 
+        [Display(Name = "Position")]
+        public string Position { get; set; }
+
+        [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
         [Required]
         public decimal EmployeePensionContributionPercentage { get; set; }
 
@@ -64,6 +71,7 @@ namespace EmployeeManagementSystem.Models
         public decimal EmployerPensionContribution { get; set; }
         public decimal? PartnerIncome { get; set; }
 
+        public decimal TaxCredit { get; set; }
         public bool IsProfileComplete { get; set; }
 
 

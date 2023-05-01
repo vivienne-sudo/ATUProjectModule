@@ -1,0 +1,58 @@
+﻿@model UserProfile
+@{
+    ViewData["Title"] = "Contract";
+}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+    }
+
+    .contract {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .header {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-weight: bold;
+    }
+
+    .variable {
+        font-weight: bold;
+    }
+</style>
+
+<div class="contract">
+    <div class="header">Employment Contract</div>
+
+    <div class="section">
+        <div class="section-title">1. Employee Information</div>
+        <p>
+            Name: <span class="variable">@Model.FirstName @Model.LastName</span><br>
+            Position: <span class="variable">@Model.Position</span><br>
+            Start Date: <span class="variable">@Model.StartDate.ToString("yyyy-MM-dd")</span>
+        </p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">2. Compensation</div>
+        <p>
+            Gross Yearly Salary: <span class="variable">@Model.YearlySalary.ToString("C")</span><br>
+            Employer Pension Contribution: @($"{Model.EmployerPensionContributionPercentage:F2}%")
+        </p>
+    </div>
+
+</div>

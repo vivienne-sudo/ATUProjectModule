@@ -4,6 +4,15 @@
     {
         public int UserProfileId { get; set; }
 
+        public decimal GrossYearlySalary { get; set; }
+        public decimal NetYearlySalary { get; set; }
+        public decimal GrossMonthlySalary { get; set; }
+        public decimal NetMonthlySalary { get; set; }
+        public decimal GrossWeeklySalary { get; set; }
+        public decimal NetWeeklySalary { get; set; }
+
+        public TaxCategory TaxCategory { get; set; }
+        public decimal TaxCredit { get; set; }
         public decimal YearlySalary { get; set; }
 
         public decimal MonthlySalary { get; set; }

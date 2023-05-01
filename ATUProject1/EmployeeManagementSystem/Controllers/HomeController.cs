@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SendGrid.Helpers.Mail;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -88,7 +89,15 @@ namespace EmployeeManagementSystem.Controllers
             // Your existing logic for the StaffHomePage
 
             var bankHolidays = await _dbContext.BankHolidays.ToListAsync();
-            return View(bankHolidays);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            var viewModel = new StaffHomePageViewModel
+            {
+                UserProfileId = userId,
+                BankHolidays = bankHolidays
+            };
+
+            return View(viewModel);
         }
 
 

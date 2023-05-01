@@ -3,6 +3,7 @@ using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -31,6 +32,23 @@ namespace EmployeeManagementSystem.Controllers
             _roleManager = roleManager;
             _context = context;
           
+        }
+        public async Task<IActionResult> Contract(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var userProfile = await _context.UserProfiles
+                .FirstOrDefaultAsync(m => m.UserId == id);
+
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(userProfile);
         }
 
         [HttpGet]
@@ -99,8 +117,10 @@ namespace EmployeeManagementSystem.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            // Check if the current user is authenticated and is in the "Staff" role
-            if (User.Identity.IsAuthenticated && await _userManager.IsInRoleAsync(await _userManager.GetUserAsync(User), "Staff"))
+            // Check if the current user is authenticated, is in the "Staff" role, and does not have the "IsAdmin" cookie
+            if (User.Identity.IsAuthenticated &&
+                await _userManager.IsInRoleAsync(await _userManager.GetUserAsync(User), "Staff") &&
+                !HttpContext.Request.Cookies.ContainsKey("IsAdmin"))
             {
                 // Redirect the staff member to the profile form
                 return RedirectToAction("Index", "Profile");
@@ -128,6 +148,9 @@ namespace EmployeeManagementSystem.Controllers
 
                     if (isAdmin)
                     {
+                        // Set the "IsAdmin" cookie for admin users
+                        HttpContext.Response.Cookies.Append("IsAdmin", "true");
+
                         // Redirect the admin user to the AdminHomePage
                         return RedirectToAction("AdminHomePage", "Home");
                     }
@@ -175,6 +198,10 @@ namespace EmployeeManagementSystem.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+
+            // Delete the "IsAdmin" cookie
+            HttpContext.Response.Cookies.Delete("IsAdmin");
+
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
