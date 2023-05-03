@@ -52,9 +52,7 @@ namespace EmployeeManagementSystem.Models
         public TaxCategory TaxCategory { get; set; }
    
         public decimal TaxObligation { get; set; }
-
-        [Display(Name = "Position")]
-        public string Position { get; set; }
+        public string? Position { get; set; }
 
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
