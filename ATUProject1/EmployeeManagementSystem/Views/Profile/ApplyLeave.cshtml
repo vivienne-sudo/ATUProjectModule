@@ -1,0 +1,52 @@
+﻿@model EmployeeManagementSystem.Models.LeaveRequestViewModel
+
+@{
+    ViewData["Title"] = "Apply Leave";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ApplyLeave" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="LeaveType"></label>
+                <select asp-for="LeaveType" class="form-control">
+                    <option value="@((int)EmployeeManagementSystem.Models.LeaveType.AnnualLeave)">Annual Leave</option>
+                    <option value="@((int)EmployeeManagementSystem.Models.LeaveType.SickLeave)">Sick Leave</option>
+                </select>
+                <span asp-validation-for="LeaveType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartDate"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndDate"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Reason"></label>
+                <textarea asp-for="Reason" class="form-control"></textarea>
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DoctorNoteFile"></label>
+                <input asp-for="DoctorNoteFile" type="file" class="form-control-file" />
+                <span asp-validation-for="DoctorNoteFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

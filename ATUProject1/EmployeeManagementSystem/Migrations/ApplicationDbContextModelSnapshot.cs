@@ -140,6 +140,9 @@ namespace EmployeeManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("AnnualLeaveDays")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("County")
                         .IsRequired()
                         .HasColumnType("text");
@@ -175,6 +178,10 @@ namespace EmployeeManagementSystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LeaveRequests")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -242,14 +249,6 @@ namespace EmployeeManagementSystem.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dcb2abe2-d16f-4655-9746-35f65f9fc0d0",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

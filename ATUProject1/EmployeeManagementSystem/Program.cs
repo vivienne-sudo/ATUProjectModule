@@ -1,8 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using EmployeeManagementSystem.Data;
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using EmployeeManagementSystem.Controllers;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using EmployeeManagementSystem.Data;
+using Microsoft.AspNetCore.Authentication;
+using System.Data;
 
 namespace EmployeeManagementSystem
 {
@@ -15,17 +23,6 @@ namespace EmployeeManagementSystem
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/Account/Login";
-            });
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -44,6 +41,27 @@ namespace EmployeeManagementSystem
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<UserProfileService>();
 
+            // Add authentication services
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            .AddCookie(options =>
+            {
+                options.Cookie.Name = "YourAppCookieName";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.LoginPath = "/Account/Login"; // the URL where user will be redirected for login
+                options.LogoutPath = "/Account/Logout"; // the URL where user will be redirected after logout
+                options.SlidingExpiration = true;
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
 
             var app = builder.Build();
 
@@ -65,6 +83,16 @@ namespace EmployeeManagementSystem
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+                if (context.Response.StatusCode == 401)
+                {
+                    context.Response.Redirect("/Account/Login"); // redirect to login page
+                }
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -73,13 +101,18 @@ namespace EmployeeManagementSystem
                 endpoints.MapRazorPages();
             });
 
+            // Clear user session when application starts
+            app.Use(async (context, next) =>
+            {
+                await context.SignOutAsync(); // clear user session
+                await next();
+            });
 
             // Create roles
             CreateRoles(app.Services).Wait();
 
             app.Run();
         }
-
         private static async Task CreateRoles(IServiceProvider serviceProvider)
         {
             using (var scope = serviceProvider.CreateScope())

@@ -72,7 +72,9 @@ namespace EmployeeManagementSystem.Models
         public decimal TaxCredit { get; set; }
         public bool IsProfileComplete { get; set; }
 
+        public int AnnualLeaveDays { get; set; }
 
+        public string LeaveRequests { get; set; }
         // Calculated properties
         [NotMapped]
         public decimal MonthlySalary => YearlySalary / 12;

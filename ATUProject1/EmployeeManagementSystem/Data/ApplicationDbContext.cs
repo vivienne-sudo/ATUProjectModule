@@ -36,14 +36,6 @@ namespace EmployeeManagementSystem.Data
                     }
                 }
             }
-            // Seed admin role
-            var adminRole = new IdentityRole
-            {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            };
-
-            modelBuilder.Entity<IdentityRole>().HasData(adminRole);
             modelBuilder.Entity<BankHoliday>().HasData(
                 new BankHoliday { Id = 1, Date = new DateTime(2023, 1, 1), Name = "New Year's Day" },
                 new BankHoliday { Id = 2, Date = new DateTime(2023, 3, 17), Name = "St. Patrick's Day" },
