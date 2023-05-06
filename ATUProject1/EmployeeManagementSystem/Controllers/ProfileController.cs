@@ -105,7 +105,7 @@ namespace EmployeeManagementSystem.Controllers
             }
             // Return the main view containing the partial view with the current model
            TempData["ErrorMessage"] = "Invalid leave request. Please correct the errors and try again.";
-    return RedirectToAction("StaffHomePage");
+    return RedirectToAction("StaffHomePage", "Home");
 }
 
 
