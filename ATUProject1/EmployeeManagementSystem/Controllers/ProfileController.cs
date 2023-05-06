@@ -21,6 +21,64 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userProfileService = userProfileService;
         }
+        [HttpGet]
+        public IActionResult ApplyForLeave()
+        {
+            return View(new ApplyForLeaveViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApplyForLeave(ApplyForLeaveViewModel model, IFormFile doctorNote)
+        {
+            if (ModelState.IsValid)
+            {
+                var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.UserProfileId == int.Parse(model.UserProfileId));
+
+                if (userProfile == null)
+                {
+                    return NotFound();
+                }
+
+                int leaveDays = model.LeaveType == "Annual" ? userProfile.AnnualLeaveDays.Value : userProfile.SickLeaveDays.Value;
+
+                DateTime startDate = DateTime.Parse(model.StartDate);
+                DateTime endDate = DateTime.Parse(model.EndDate);
+
+                int daysRequested = (int)(endDate - startDate).TotalDays + 1;
+
+                if (daysRequested > leaveDays)
+                {
+                    ModelState.AddModelError("StartDate", "You do not have enough leave days available.");
+                    return View(model);
+                }
+
+                var leaveRequest = new LeaveRequest
+                {
+                    UserProfileId = int.Parse(model.UserProfileId),
+                    LeaveType = model.LeaveType,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Status = LeaveRequestStatus.Pending
+                };
+
+                if (model.LeaveType == "Sick" && doctorNote != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await doctorNote.CopyToAsync(memoryStream);
+                        leaveRequest.DoctorNote = memoryStream.ToArray();
+                    }
+                }
+
+                _context.LeaveRequests.Add(leaveRequest);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("StaffHomePage", "Profile");
+            }
+
+            return View(model);
+        }
 
         [HttpGet]
         [Authorize]
@@ -321,11 +379,14 @@ namespace EmployeeManagementSystem.Controllers
 
             var editSalaryViewModel = new EditSalaryViewModel
             {
+
                 UserProfileId = userProfile.UserProfileId,
                 YearlySalary = userProfile.YearlySalary,
                 Position = userProfile.Position,
                 StartDate = userProfile.StartDate == DateTime.MinValue ? DateTime.Now : userProfile.StartDate,
-                EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage
+                EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage,
+                AnnualLeaveDays = userProfile.AnnualLeaveDays ?? 0,
+                SickLeaveDays = userProfile.SickLeaveDays ?? 0
             };
 
             return View(editSalaryViewModel);
@@ -333,7 +394,7 @@ namespace EmployeeManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary,Position,StartDate,EmployerPensionContributionPercentage")] EditSalaryViewModel editSalaryViewModel)
+        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary,Position,StartDate,EmployerPensionContributionPercentage,AnnualLeaveDays,SickLeaveDays")] EditSalaryViewModel editSalaryViewModel)
         {
             if (userProfileId != editSalaryViewModel.UserProfileId)
             {
@@ -347,6 +408,8 @@ namespace EmployeeManagementSystem.Controllers
                 userProfile.Position = editSalaryViewModel.Position;
                 userProfile.StartDate = editSalaryViewModel.StartDate;
                 userProfile.EmployerPensionContributionPercentage = editSalaryViewModel.EmployerPensionContributionPercentage; // Fix this line
+                userProfile.AnnualLeaveDays = editSalaryViewModel.AnnualLeaveDays;
+                userProfile.SickLeaveDays = editSalaryViewModel.SickLeaveDays;
 
                 try
                 {

@@ -3,8 +3,8 @@
     public class StaffHomePageViewModel
     {
         public UserProfile UserProfile { get; set; }
-        public int AnnualLeaveDaysAvailable { get; set; }
-        public int SickLeaveDaysAvailable { get; set; }
+        public int AnnualLeaveDays { get; set; }
+        public int SickLeaveDays { get; set; }
         public string UserProfileId { get; set; }
         public List<BankHoliday> BankHolidays { get; set; }
     }

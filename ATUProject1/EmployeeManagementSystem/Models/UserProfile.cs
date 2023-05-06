@@ -51,6 +51,9 @@ namespace EmployeeManagementSystem.Models
         [Display(Name = "Tax Category")]
         public TaxCategory TaxCategory { get; set; }
    
+        public int? AnnualLeaveDays { get; set; }
+
+        public int? SickLeaveDays { get; set; }
         public decimal TaxObligation { get; set; }
         public string? Position { get; set; }
 

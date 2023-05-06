@@ -20,9 +20,19 @@ namespace EmployeeManagementSystem.Data
 
         public DbSet<BankHoliday> BankHolidays { get; set; }
 
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Check if the database has already been seeded
+            var databaseSeed = _configuration.GetValue<bool>("DatabaseSeed");
+            if (databaseSeed)
+            {
+                return;
+            }
 
             // Customize data types for SQLite
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
@@ -56,6 +66,9 @@ namespace EmployeeManagementSystem.Data
                 new BankHoliday { Id = 9, Date = new DateTime(2023, 12, 25), Name = "Christmas Day" },
                 new BankHoliday { Id = 10, Date = new DateTime(2023, 12, 26), Name = "St. Stephen's Day" }
             );
+            // Set the flag to indicate that the database has been seeded
+            _configuration["DatabaseSeed"] = true.ToString();
         }
     }
 }
+

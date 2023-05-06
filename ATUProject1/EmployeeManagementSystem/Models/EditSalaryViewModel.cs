@@ -10,6 +10,12 @@ namespace EmployeeManagementSystem.Models
         [Display(Name = "Position")]
         public string Position { get; set; }
 
+        [Required]
+        public int AnnualLeaveDays { get; set; }
+
+        [Required]
+        public int SickLeaveDays { get; set; }
+
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }

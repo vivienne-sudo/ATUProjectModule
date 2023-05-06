@@ -12,16 +12,49 @@
 <!-- Annual Leave -->
 <div class="widget">
     <h3>Annual Leave</h3>
-    <p>Days available: <span id="annualLeaveDays">0</span></p>
+    <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
     <button id="applyAnnualLeave">Apply for Annual Leave</button>
+    <!-- Apply for Annual Leave modal -->
+    <div class="modal fade" id="applyAnnualLeaveModal" tabindex="-1" role="dialog" aria-labelledby="applyAnnualLeaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applyAnnualLeaveModalLabel">Apply for Annual Leave</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Annual", UserProfileId = Model.UserProfileId })
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Sick Leave -->
 <div class="widget">
     <h3>Sick Leave</h3>
-    <p>Days available: <span id="sickLeaveDays">0</span></p>
+    <p>Days available: <span id="sickLeaveDays">@Model.SickLeaveDays</span></p>
     <button id="applySickLeave">Apply for Sick Leave</button>
+    <!-- Apply for Sick Leave modal -->
+    <div class="modal fade" id="applySickLeaveModal" tabindex="-1" role="dialog" aria-labelledby="applySickLeaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applySickLeaveModalLabel">Apply for Sick Leave</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Sick", UserProfileId = Model.UserProfileId })
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <!-- Other widgets -->
 
