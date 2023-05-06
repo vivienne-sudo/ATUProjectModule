@@ -94,7 +94,8 @@ namespace EmployeeManagementSystem.Controllers
             var viewModel = new StaffHomePageViewModel
             {
                 UserProfileId = userId,
-                BankHolidays = bankHolidays
+                BankHolidays = bankHolidays,
+                ErrorMessage = TempData["ErrorMessage"]?.ToString()
             };
 
             return View(viewModel);

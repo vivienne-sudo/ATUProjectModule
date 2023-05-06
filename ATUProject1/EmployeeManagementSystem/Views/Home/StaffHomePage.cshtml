@@ -12,8 +12,8 @@
 <!-- Annual Leave -->
 <div class="widget">
     <h3>Annual Leave</h3>
-    <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
-    <button id="applyAnnualLeave">Apply for Annual Leave</button>
+  <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
+  <button id="applyAnnualLeave">Apply for Annual Leave</button>
     <!-- Apply for Annual Leave modal -->
     <div class="modal fade" id="applyAnnualLeaveModal" tabindex="-1" role="dialog" aria-labelledby="applyAnnualLeaveModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -25,13 +25,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Annual", UserProfileId = Model.UserProfileId })
+                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Annual", UserProfileId = Model.UserProfileId.ToString() })
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Sick Leave -->
 <div class="widget">
     <h3>Sick Leave</h3>
@@ -48,14 +47,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Sick", UserProfileId = Model.UserProfileId })
+                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Sick", UserProfileId = Model.UserProfileId.ToString() })
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
 <!-- Other widgets -->
 
 <script>
@@ -70,13 +73,14 @@
         $('#annualLeaveDays').text(/* Get available annual leave days from the server */);
         $('#sickLeaveDays').text(/* Get available sick leave days from the server */);
 
-        // Apply for leave buttons
+        // Open the "Apply for Annual Leave" modal when the button is clicked
         $('#applyAnnualLeave').click(function () {
-            // Implement the logic for applying for annual leave
+            $('#applyAnnualLeaveModal').modal('show');
         });
 
+        // Open the "Apply for Sick Leave" modal when the button is clicked
         $('#applySickLeave').click(function () {
-            // Implement the logic for applying for sick leave
+            $('#applySickLeaveModal').modal('show');
         });
     });
 </script>

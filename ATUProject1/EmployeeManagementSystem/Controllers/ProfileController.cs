@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -21,11 +22,36 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userProfileService = userProfileService;
         }
-        [HttpGet]
-        public IActionResult ApplyForLeave()
+
+        public IActionResult LeaveRequestConfirmation(int id)
         {
-            return View(new ApplyForLeaveViewModel());
+            var leaveRequest = _context.LeaveRequests.Find(id);
+
+            if (leaveRequest == null)
+            {
+                return NotFound();
+            }
+
+            return View(leaveRequest);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ApplyForLeave()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var model = new ApplyForLeaveViewModel();
+            var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.UserProfileId == Convert.ToInt32(model.UserProfileId));
+
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            model.UserProfileId = userProfile.UserProfileId.ToString();
+
+            return View(model);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -33,14 +59,14 @@ namespace EmployeeManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.UserProfileId == int.Parse(model.UserProfileId));
+          var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.UserProfileId == int.Parse(model.UserProfileId));
 
                 if (userProfile == null)
                 {
                     return NotFound();
                 }
 
-                int leaveDays = model.LeaveType == "Annual" ? userProfile.AnnualLeaveDays.Value : userProfile.SickLeaveDays.Value;
+                int leaveDays = model.LeaveType == "Annual" ? userProfile.AnnualLeaveDays ?? 0 : userProfile.SickLeaveDays ?? 0;
 
                 DateTime startDate = DateTime.Parse(model.StartDate);
                 DateTime endDate = DateTime.Parse(model.EndDate);
@@ -49,9 +75,10 @@ namespace EmployeeManagementSystem.Controllers
 
                 if (daysRequested > leaveDays)
                 {
-                    ModelState.AddModelError("StartDate", "You do not have enough leave days available.");
-                    return View(model);
+                    TempData["ErrorMessage"] = $"You do not have enough {model.LeaveType} leave days available.";
+                    return RedirectToAction("StaffHomePage", "Home");
                 }
+
 
                 var leaveRequest = new LeaveRequest
                 {
@@ -73,12 +100,14 @@ namespace EmployeeManagementSystem.Controllers
 
                 _context.LeaveRequests.Add(leaveRequest);
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction("StaffHomePage", "Profile");
+                // Redirect to the LeaveRequestConfirmation view
+                return RedirectToAction("LeaveRequestConfirmation", new { id = leaveRequest.LeaveRequestId });
             }
+            // Return the main view containing the partial view with the current model
+           TempData["ErrorMessage"] = "Invalid leave request. Please correct the errors and try again.";
+    return RedirectToAction("StaffHomePage");
+}
 
-            return View(model);
-        }
 
         [HttpGet]
         [Authorize]
@@ -125,7 +154,7 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -133,10 +162,37 @@ namespace EmployeeManagementSystem.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            // Pass the user ID to the view
-            ViewBag.UserId = user.Id;
+            var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.UserId == user.Id);
 
-            return View();
+            if (userProfile == null)
+            {
+                // If UserProfile doesn't exist, create a new one
+                userProfile = new UserProfile
+                {
+                    UserId = user.Id
+                };
+                _context.UserProfiles.Add(userProfile);
+                await _context.SaveChangesAsync();
+            }
+
+            var model = new ProfileViewModel
+            {
+                UserId = user.Id,
+                FirstName = userProfile.FirstName,
+                LastName = userProfile.LastName,
+                AddressLine1 = userProfile.AddressLine1,
+                AddressLine2 = userProfile.AddressLine2,
+                County = userProfile.County,
+                Eircode = userProfile.Eircode,
+                PhoneNumber = userProfile.PhoneNumber,
+                PPSN = userProfile.PPSN,
+                DateOfBirth = userProfile.DateOfBirth,
+                Gender = userProfile.Gender,
+                PartnerIncome = userProfile.PartnerIncome,
+                TaxCategory = userProfile.TaxCategory
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -145,29 +201,18 @@ namespace EmployeeManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Get the currently logged-in user
-                var user = await _userManager.FindByIdAsync(model.UserId);
+                var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
 
-                // Find the existing UserProfile for the current user
                 var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.UserId == user.Id);
-
-                bool isFirstTimeProfileCompletion = userProfile == null;
-
-                if (isFirstTimeProfileCompletion)
+                if (userProfile == null)
                 {
-                    // If UserProfile doesn't exist, create a new one
-                    userProfile = new UserProfile
-                    {
-                        UserId = user.Id
-                    };
-                    _context.UserProfiles.Add(userProfile);
+                    return NotFound($"User profile not found for user with ID '{user.Id}'.");
                 }
 
-                // Update the UserProfile with the new data from the ProfileViewModel
                 userProfile.FirstName = model.FirstName;
                 userProfile.LastName = model.LastName;
                 userProfile.AddressLine1 = model.AddressLine1;
@@ -181,33 +226,11 @@ namespace EmployeeManagementSystem.Controllers
                 userProfile.PartnerIncome = model.PartnerIncome;
                 userProfile.TaxCategory = model.TaxCategory;
 
-                // Save the changes to the database
                 await _context.SaveChangesAsync();
 
                 var userName = $"{userProfile.FirstName} {userProfile.LastName}";
+                await CreateNotificationAsync($"User {userName} has updated their profile.", userProfile.FirstName, userProfile.LastName);
 
-                // Check if this is the first time the user is completing their profile
-                if (isFirstTimeProfileCompletion)
-                {
-                    // Send a notification to the admin
-                    await CreateNotificationAsync($"User {userProfile.FirstName} {userProfile.LastName} has created their profile.", userProfile.FirstName, userProfile.LastName);
-                }
-                else
-                {
-                    await CreateNotificationAsync($"User {userProfile.FirstName} {userProfile.LastName} has updated their profile.", userProfile.FirstName, userProfile.LastName);
-                }
-
-                // Get the roles of the user
-                var userRoles = await _userManager.GetRolesAsync(user);
-
-                // Check if the user is an admin
-                if (userRoles.Contains("Admin"))
-                {
-                    // Redirect to the admin homepage
-                    return RedirectToAction("AdminHomePage", "Home");
-                }
-
-                // Redirect to the staff homepage for non-admin users
                 return RedirectToAction("StaffHomePage", "Home");
             }
 
