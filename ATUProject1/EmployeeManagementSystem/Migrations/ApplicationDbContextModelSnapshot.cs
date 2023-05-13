@@ -35,6 +35,27 @@ namespace EmployeeManagementSystem.Migrations
                     b.ToTable("BankHolidays");
                 });
 
+            modelBuilder.Entity("EmployeeManagementSystem.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("EmployeeManagementSystem.Models.LeaveRequest", b =>
                 {
                     b.Property<int>("LeaveRequestId")

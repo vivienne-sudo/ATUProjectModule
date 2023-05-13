@@ -3,63 +3,42 @@
     ViewData["Title"] = "Staff Home Page";
 }
 
-<h2>Staff Home Page</h2>
-<a asp-controller="Profile" asp-action="Contract" asp-route-id="@Model.UserProfileId">View Contract</a>
-
-<!-- Calendar -->
-<div id="calendar"></div>
-
-<!-- Annual Leave -->
-<div class="widget">
-    <h3>Annual Leave</h3>
-  <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
-  <button id="applyAnnualLeave">Apply for Annual Leave</button>
-    <!-- Apply for Annual Leave modal -->
-    <div class="modal fade" id="applyAnnualLeaveModal" tabindex="-1" role="dialog" aria-labelledby="applyAnnualLeaveModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="applyAnnualLeaveModalLabel">Apply for Annual Leave</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Annual", UserProfileId = Model.UserProfileId.ToString() })
-                </div>
-            </div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2 class="display-4">Staff Home Page</h2>
         </div>
     </div>
-</div>
-<!-- Sick Leave -->
-<div class="widget">
-    <h3>Sick Leave</h3>
-    <p>Days available: <span id="sickLeaveDays">@Model.SickLeaveDays</span></p>
-    <button id="applySickLeave">Apply for Sick Leave</button>
-    <!-- Apply for Sick Leave modal -->
-    <div class="modal fade" id="applySickLeaveModal" tabindex="-1" role="dialog" aria-labelledby="applySickLeaveModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="applySickLeaveModalLabel">Apply for Sick Leave</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @await Html.PartialAsync("_ApplyForLeave", new ApplyForLeaveViewModel { LeaveType = "Sick", UserProfileId = Model.UserProfileId.ToString() })
-                </div>
-            </div>
+
+    <!-- Calendar -->
+    <div id="calendar" class="mb-5"></div>
+
+    <!-- Annual Leave -->
+    <div class="widget">
+        <h3>Annual Leave</h3>
+        <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
+        <a asp-controller="ApplyForLeave" asp-action="Index" asp-route-leaveType="Annual" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-lilac">Apply for Annual Leave</a>
+    </div>
+
+    <!-- Sick Leave -->
+    <div class="widget">
+        <h3>Sick Leave</h3>
+        <p>Days available: <span id="sickLeaveDays">@Model.SickLeaveDays</span></p>
+        <a asp-controller="ApplyForLeave" asp-action="Index" asp-route-leaveType="Sick" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-lilac">Apply for Sick Leave</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @Model.ErrorMessage
         </div>
+    }
+</div>
+<div class="row mt-4">
+    <div class="col-md-12 text-center">
+        <a asp-controller="Profile" asp-action="Contract" asp-route-id="@Model.UserProfileId" class="btn btn-lilac mb-4">Employment Contract Here</a>
     </div>
 </div>
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
-{
-    <div class="alert alert-danger">
-        @Model.ErrorMessage
-    </div>
-}
-<!-- Other widgets -->
 
 <script>
     $(document).ready(function () {
@@ -89,8 +68,16 @@
     .widget {
         border: 1px solid #ccc;
         padding: 1rem;
-        display: inline-block;
-        margin-right: 1rem;
-        vertical-align: top;
+        margin-bottom: 1rem;
     }
+
+    .btn-lilac {
+        background-color: #D8BFD8;
+        color: #333;
+    }
+
+        .btn-lilac:hover {
+            background-color: #CDB5CD;
+            color: #333;
+        }
 </style>

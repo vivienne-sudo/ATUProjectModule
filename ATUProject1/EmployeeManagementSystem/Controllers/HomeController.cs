@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SendGrid.Helpers.Mail;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -96,6 +95,7 @@ namespace EmployeeManagementSystem.Controllers
                 UserProfileId = userId,
                 BankHolidays = bankHolidays,
                 ErrorMessage = TempData["ErrorMessage"]?.ToString()
+                
             };
 
             return View(viewModel);

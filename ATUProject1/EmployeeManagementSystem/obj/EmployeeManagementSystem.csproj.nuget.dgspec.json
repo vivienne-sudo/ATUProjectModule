@@ -45,10 +45,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Mailjet.Api": {
-              "target": "Package",
-              "version": "[3.0.0, )"
-            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.5, )"
@@ -74,10 +70,6 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.5, )"
-            },
-            "SendGrid": {
-              "target": "Package",
-              "version": "[9.28.1, )"
             },
             "fullcalendar": {
               "target": "Package",

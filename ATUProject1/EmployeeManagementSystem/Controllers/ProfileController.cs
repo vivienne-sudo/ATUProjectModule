@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -15,98 +14,15 @@ namespace EmployeeManagementSystem.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly UserProfileService _userProfileService;
+        private readonly ILogger _logger;
 
-        public ProfileController(UserProfileService userProfileService, UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public ProfileController(UserProfileService userProfileService, UserManager<IdentityUser> userManager, ApplicationDbContext context, ILogger<ProfileController> logger)
         {
             _userManager = userManager;
             _context = context;
             _userProfileService = userProfileService;
+            _logger = logger;
         }
-
-        public IActionResult LeaveRequestConfirmation(int id)
-        {
-            var leaveRequest = _context.LeaveRequests.Find(id);
-
-            if (leaveRequest == null)
-            {
-                return NotFound();
-            }
-
-            return View(leaveRequest);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> ApplyForLeave()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = new ApplyForLeaveViewModel();
-            var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.UserProfileId == Convert.ToInt32(model.UserProfileId));
-
-            if (userProfile == null)
-            {
-                return NotFound();
-            }
-
-            model.UserProfileId = userProfile.UserProfileId.ToString();
-
-            return View(model);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ApplyForLeave(ApplyForLeaveViewModel model, IFormFile doctorNote)
-        {
-            if (ModelState.IsValid)
-            {
-          var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.UserProfileId == int.Parse(model.UserProfileId));
-
-                if (userProfile == null)
-                {
-                    return NotFound();
-                }
-
-                int leaveDays = model.LeaveType == "Annual" ? userProfile.AnnualLeaveDays ?? 0 : userProfile.SickLeaveDays ?? 0;
-
-                DateTime startDate = DateTime.Parse(model.StartDate);
-                DateTime endDate = DateTime.Parse(model.EndDate);
-
-                int daysRequested = (int)(endDate - startDate).TotalDays + 1;
-
-                if (daysRequested > leaveDays)
-                {
-                    TempData["ErrorMessage"] = $"You do not have enough {model.LeaveType} leave days available.";
-                    return RedirectToAction("StaffHomePage", "Home");
-                }
-
-
-                var leaveRequest = new LeaveRequest
-                {
-                    UserProfileId = int.Parse(model.UserProfileId),
-                    LeaveType = model.LeaveType,
-                    StartDate = startDate,
-                    EndDate = endDate,
-                    Status = LeaveRequestStatus.Pending
-                };
-
-                if (model.LeaveType == "Sick" && doctorNote != null)
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        await doctorNote.CopyToAsync(memoryStream);
-                        leaveRequest.DoctorNote = memoryStream.ToArray();
-                    }
-                }
-
-                _context.LeaveRequests.Add(leaveRequest);
-                await _context.SaveChangesAsync();
-                // Redirect to the LeaveRequestConfirmation view
-                return RedirectToAction("LeaveRequestConfirmation", new { id = leaveRequest.LeaveRequestId });
-            }
-            // Return the main view containing the partial view with the current model
-           TempData["ErrorMessage"] = "Invalid leave request. Please correct the errors and try again.";
-    return RedirectToAction("StaffHomePage", "Home");
-}
 
 
         [HttpGet]

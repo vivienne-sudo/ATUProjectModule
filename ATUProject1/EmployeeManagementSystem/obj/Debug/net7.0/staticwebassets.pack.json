@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\Images\\profile_icon.png"
     },
     {
+      "Id": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
       "Id": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

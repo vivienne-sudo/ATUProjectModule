@@ -1,0 +1,25 @@
+﻿body {
+    background-color: #FFFFFF; /* White */
+    color: #333333; /* Dark Grey */
+}
+
+.navbar {
+    background-color: #F6F6F6; /* Light Grey */
+}
+
+    .navbar .nav-link {
+        color: #333333; /* Dark Grey */
+    }
+
+        .navbar .nav-link:hover {
+            color: #0066CC; /* Blue */
+        }
+
+.widget {
+    background-color: #FFFFFF; /* White */
+    border-color: #F6F6F6; /* Light Grey */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #0066CC; /* Blue */
+}

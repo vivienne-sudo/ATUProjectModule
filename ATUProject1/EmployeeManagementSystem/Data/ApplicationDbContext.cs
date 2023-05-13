@@ -17,10 +17,9 @@ namespace EmployeeManagementSystem.Data
         public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
-
         public DbSet<BankHoliday> BankHolidays { get; set; }
 
-        public DbSet<LeaveRequest> LeaveRequests { get; set; }
+   
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
