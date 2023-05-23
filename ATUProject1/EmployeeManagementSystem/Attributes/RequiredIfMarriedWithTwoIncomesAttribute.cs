@@ -3,8 +3,17 @@ using EmployeeManagementSystem.Models;
 
 namespace EmployeeManagementSystem.Attributes
 {
+    /// <summary>
+    /// Validates that the partner income is required when the tax category is 'Married with two incomes'.
+    /// </summary>
     public class RequiredIfMarriedWithTwoIncomesAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// Determines whether the specified value is valid.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="validationContext">The context information about the validation operation.</param>
+        /// <returns>An instance of the <see cref="ValidationResult"/> class.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var profileViewModel = (ProfileViewModel)validationContext.ObjectInstance;
@@ -18,4 +27,3 @@ namespace EmployeeManagementSystem.Attributes
         }
     }
 }
-

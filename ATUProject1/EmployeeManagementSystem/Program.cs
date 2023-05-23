@@ -11,7 +11,6 @@ namespace EmployeeManagementSystem
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -28,7 +27,7 @@ namespace EmployeeManagementSystem
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
-                // configure confirmation email
+
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 12;
@@ -43,10 +42,11 @@ namespace EmployeeManagementSystem
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<UserProfileService>();
 
+            // Add the session service
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -59,6 +59,10 @@ namespace EmployeeManagementSystem
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Use the session middleware
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -72,8 +76,6 @@ namespace EmployeeManagementSystem
                 endpoints.MapRazorPages();
             });
 
-
-            // Create roles
             CreateRoles(app.Services).Wait();
 
             app.Run();
