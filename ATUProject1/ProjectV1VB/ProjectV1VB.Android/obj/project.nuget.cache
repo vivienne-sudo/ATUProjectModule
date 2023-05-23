@@ -1,20 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "3XKcZYblLHmqyzMg2owx9TpiZ+N9yxlnpShzDPcwJwF/YW36Uv5OO3L2PfnnxUCT8rVdQb4/M/k49vF/VcowPA==",
+  "dgSpecHash": "9sCV0vXnl4DNn6fbVX4OXHx0e4J5C3fiqOOVEFWvUbAbfkQneehoksVHY1vSc5LcXkazzmS6xNeC/fIq09zGXQ==",
   "success": false,
   "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\ProjectV1VB.Android.csproj",
   "expectedPackageFiles": [],
   "logs": [
     {
-      "code": "Undefined",
+      "code": "NU1201",
       "level": "Error",
-      "message": "Failed to download package 'SQLitePCLRaw.lib.e_sqlite3.android.2.1.4' from 'https://api.nuget.org/v3-flatcontainer/sqlitepclraw.lib.e_sqlite3.android/2.1.4/sqlitepclraw.lib.e_sqlite3.android.2.1.4.nupkg'.\r\nThe ServicePointManager does not support proxies with the https scheme."
-    },
-    {
-      "code": "NU1301",
-      "level": "Error",
-      "message": "Failed to retrieve information about 'SQLitePCLRaw.lib.e_sqlite3.android' from remote source 'https://api.nuget.org/v3-flatcontainer/sqlitepclraw.lib.e_sqlite3.android/index.json'.",
-      "libraryId": "SQLitePCLRaw.lib.e_sqlite3.android"
+      "message": "Project ProjectV1VB is not compatible with monoandroid50 (MonoAndroid,Version=v5.0). Project ProjectV1VB supports: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "ProjectV1VB",
+      "targetGraphs": [
+        "MonoAndroid,Version=v5.0"
+      ]
     }
   ]
 }

@@ -1,0 +1,125 @@
+﻿@model ProfileViewModel
+@{
+    ViewData["Title"] = "Complete Your Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Index" method="post">
+    <input type="hidden" asp-for="UserId" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <select asp-for="Gender" asp-items="@(new SelectList(new List<string> { "Male", "Female", "Other" }))" class="form-control"></select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TaxCategory">Tax Category</label>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.Single" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">Single</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.MarriedSingleIncome" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">Married with single income</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.MarriedTwoIncomes" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">Married with two incomes</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="TaxCategory" value="@TaxCategory.OneParentFamily" type="radio" class="form-check-input" />
+            <label asp-for="TaxCategory" class="form-check-label">One parent family</label>
+        </div>
+        <span asp-validation-for="TaxCategory" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group" id="partnerIncomeGroup" style="display:none;">
+        <label asp-for="PartnerIncome" class="control-label"></label>
+        <input asp-for="PartnerIncome" class="form-control" />
+        <span asp-validation-for="PartnerIncome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddressLine1"></label>
+        <input asp-for="AddressLine1" class="form-control" />
+        <span asp-validation-for="AddressLine1" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddressLine2"></label>
+        <input asp-for="AddressLine2" class="form-control" />
+        <span asp-validation-for="AddressLine2" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="County"></label>
+        <input asp-for="County" class="form-control" />
+        <span asp-validation-for="County" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Eircode"></label>
+        <input asp-for="Eircode" class="form-control" />
+        <span asp-validation-for="Eircode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PPSN"></label>
+        <input asp-for="PPSN" class="form-control" />
+        <span asp-validation-for="PPSN" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var taxCategory = $("input[type=radio][name='TaxCategory']");
+            var partnerIncomeGroup = $("#partnerIncomeGroup");
+
+            function togglePartnerIncome() {
+                if (taxCategory.filter(':checked').val() == '@TaxCategory.MarriedTwoIncomes') {
+                    partnerIncomeGroup.show();
+                } else {
+                    partnerIncomeGroup.hide();
+                }
+            }
+
+            taxCategory.change(togglePartnerIncome);
+            togglePartnerIncome();
+        });
+
+    </script>
+}
+
+

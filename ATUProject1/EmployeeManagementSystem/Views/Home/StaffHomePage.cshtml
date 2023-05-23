@@ -1,0 +1,83 @@
+﻿@model StaffHomePageViewModel
+@{
+    ViewData["Title"] = "Staff Home Page";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2 class="display-4">Staff Home Page</h2>
+        </div>
+    </div>
+
+    <!-- Calendar -->
+    <div id="calendar" class="mb-5"></div>
+
+    <!-- Annual Leave -->
+    <div class="widget">
+        <h3>Annual Leave</h3>
+        <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
+        <a asp-controller="ApplyForLeave" asp-action="Index" asp-route-leaveType="Annual" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-lilac">Apply for Annual Leave</a>
+    </div>
+
+    <!-- Sick Leave -->
+    <div class="widget">
+        <h3>Sick Leave</h3>
+        <p>Days available: <span id="sickLeaveDays">@Model.SickLeaveDays</span></p>
+        <a asp-controller="ApplyForLeave" asp-action="Index" asp-route-leaveType="Sick" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-lilac">Apply for Sick Leave</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @Model.ErrorMessage
+        </div>
+    }
+</div>
+<div class="row mt-4">
+    <div class="col-md-12 text-center">
+        <a asp-controller="Profile" asp-action="Contract" asp-route-id="@Model.UserProfileId" class="btn btn-lilac mb-4">Employment Contract Here</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Initialize the calendar
+        $('#calendar').fullCalendar({
+            // Configure calendar options here
+            events: @Html.Raw(Json.Serialize(Model.BankHolidays.Select(bh => new { title = "Bank Holiday", start = bh.Date.ToString("yyyy-MM-dd") })))
+       });
+
+        // Update available leave days
+        $('#annualLeaveDays').text(/* Get available annual leave days from the server */);
+        $('#sickLeaveDays').text(/* Get available sick leave days from the server */);
+
+        // Open the "Apply for Annual Leave" modal when the button is clicked
+        $('#applyAnnualLeave').click(function () {
+            $('#applyAnnualLeaveModal').modal('show');
+        });
+
+        // Open the "Apply for Sick Leave" modal when the button is clicked
+        $('#applySickLeave').click(function () {
+            $('#applySickLeaveModal').modal('show');
+        });
+    });
+</script>
+
+<style>
+    .widget {
+        border: 1px solid #ccc;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-lilac {
+        background-color: #D8BFD8;
+        color: #333;
+    }
+
+        .btn-lilac:hover {
+            background-color: #CDB5CD;
+            color: #333;
+        }
+</style>

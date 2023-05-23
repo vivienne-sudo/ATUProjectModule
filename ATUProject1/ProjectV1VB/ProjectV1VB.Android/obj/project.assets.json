@@ -1,15 +1,29 @@
 {
   "version": 3,
   "targets": {
-    "MonoAndroid,Version=v13.0": {}
+    "MonoAndroid,Version=v5.0": {
+      "ProjectV1VB/1.0.0": {
+        "type": "project",
+        "framework": "Unsupported,Version=v0.0",
+        "compile": {
+          "bin/placeholder/ProjectV1VB.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectV1VB.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ProjectV1VB/1.0.0": {
+      "type": "project",
+      "path": "../ProjectV1VB/ProjectV1VB.csproj",
+      "msbuildProject": "../ProjectV1VB/ProjectV1VB.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "MonoAndroid,Version=v13.0": [
-      "MSTest.TestAdapter >= 3.0.2",
-      "Microsoft.NET.Test.Sdk >= 17.5.0",
-      "Xamarin.Essentials >= 1.7.5",
-      "Xamarin.Forms >= 5.0.0.2578"
+    "MonoAndroid,Version=v5.0": [
+      "ProjectV1VB >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -20,12 +34,11 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\ProjectV1VB.Android.csproj",
-      "projectName": "ProjectV1VB.Android",
+      "projectName": "com.companyname.ProjectV1VB",
       "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\ProjectV1VB.Android.csproj",
       "packagesPath": "C:\\Users\\Vivie\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB.Android\\obj\\",
       "projectStyle": "PackageReference",
-      "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
@@ -35,57 +48,45 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "monoandroid13.0"
+        "monoandroid12.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.pkg.github.com/<vivienne-sudo>/index.json": {}
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "monoandroid13.0": {
+        "monoandroid50": {
+          "targetAlias": "monoandroid12.0",
           "projectReferences": {
             "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB\\ProjectV1VB.csproj": {
               "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\ProjectV1VB\\ProjectV1VB\\ProjectV1VB.csproj"
             }
           }
         }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
       }
     },
     "frameworks": {
-      "monoandroid13.0": {
-        "dependencies": {
-          "MSTest.TestAdapter": {
-            "target": "Package",
-            "version": "[3.0.2, )"
-          },
-          "Microsoft.NET.Test.Sdk": {
-            "target": "Package",
-            "version": "[17.5.0, )"
-          },
-          "Xamarin.Essentials": {
-            "target": "Package",
-            "version": "[1.7.5, )"
-          },
-          "Xamarin.Forms": {
-            "target": "Package",
-            "version": "[5.0.0.2578, )"
-          }
-        }
+      "monoandroid50": {
+        "targetAlias": "monoandroid12.0",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
     {
-      "code": "Undefined",
+      "code": "NU1201",
       "level": "Error",
-      "message": "Failed to download package 'SQLitePCLRaw.lib.e_sqlite3.android.2.1.4' from 'https://api.nuget.org/v3-flatcontainer/sqlitepclraw.lib.e_sqlite3.android/2.1.4/sqlitepclraw.lib.e_sqlite3.android.2.1.4.nupkg'.\r\nThe ServicePointManager does not support proxies with the https scheme."
-    },
-    {
-      "code": "NU1301",
-      "level": "Error",
-      "message": "Failed to retrieve information about 'SQLitePCLRaw.lib.e_sqlite3.android' from remote source 'https://api.nuget.org/v3-flatcontainer/sqlitepclraw.lib.e_sqlite3.android/index.json'.",
-      "libraryId": "SQLitePCLRaw.lib.e_sqlite3.android"
+      "message": "Project ProjectV1VB is not compatible with monoandroid50 (MonoAndroid,Version=v5.0). Project ProjectV1VB supports: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "ProjectV1VB",
+      "targetGraphs": [
+        "MonoAndroid,Version=v5.0"
+      ]
     }
   ]
 }

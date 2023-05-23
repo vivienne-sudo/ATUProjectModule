@@ -1,0 +1,19 @@
+﻿@model IEnumerable<EmployeeManagementSystem.Models.Notification>
+
+@{
+    ViewData["Title"] = "Admin Home Page";
+}
+
+<h1>Admin Home Page</h1>
+<a asp-controller="Profile" asp-action="AllStaff" class="btn btn-primary">View All Staff Profiles</a>
+<a asp-controller="AdminNotifications" asp-action="ViewedNotifications" class="btn btn-primary">View Viewed Notifications</a>
+
+<div class="row">
+    <div class="col-md-8">
+        <!-- Add your main content here -->
+    </div>
+    <div class="col-md-4">
+        @await Html.PartialAsync("~/Views/AdminNotifications/Index.cshtml", Model)
+    </div>
+</div>
+

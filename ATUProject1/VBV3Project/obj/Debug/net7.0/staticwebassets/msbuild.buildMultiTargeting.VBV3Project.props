@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\VBV3Project.props" />
+</Project>

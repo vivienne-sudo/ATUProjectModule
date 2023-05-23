@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net6.0-windows7.0": {
       "coverlet.collector/3.1.2": {
         "type": "package",
         "build": {
@@ -798,10 +798,10 @@
           "SQLitePCLRaw.core": "2.1.4"
         },
         "compile": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         },
         "runtime": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "System.AppContext/4.3.0": {
@@ -7085,7 +7085,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net6.0-windows7.0": [
       "MSTest.TestAdapter >= 2.2.10",
       "MSTest.TestFramework >= 2.2.10",
       "Microsoft.Data.Sqlite >= 7.0.3",
@@ -7115,17 +7115,16 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net6.0-windows"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.pkg.github.com/<vivienne-sudo>/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
           "projectReferences": {}
         }
       },
@@ -7136,8 +7135,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
         "dependencies": {
           "MSTest.TestAdapter": {
             "target": "Package",

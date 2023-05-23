@@ -1,0 +1,73 @@
+﻿@model EmployeeManagementSystem.Models.UserProfile
+
+@{
+    ViewData["Title"] = "Your Profile";
+}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-lilac text-white">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+                <div class="card-body bg-light">
+                   <div class="form-group">
+                        <label>First Name:</label>
+                        <p>@Model.FirstName</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name:</label>
+                        <p>@Model.LastName</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Address Line 1:</label>
+                        <p>@Model.AddressLine1</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Address Line 2:</label>
+                        <p>@Model.AddressLine2</p>
+                    </div>
+                    <div class="form-group">
+                        <label>County:</label>
+                        <p>@Model.County</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Eircode:</label>
+                        <p>@Model.Eircode</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number:</label>
+                        <p>@Model.PhoneNumber</p>
+                    </div>
+                    <div class="form-group">
+                        <label>PPSN:</label>
+                        <p>@Model.PPSN</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth:</label>
+                        <p>@Model.DateOfBirth.ToShortDateString()</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender:</label>
+                        <p>@Model.Gender</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Tax Category:</label>
+                        <p>@Model.TaxCategory</p>
+                        @if (Model.TaxCategory == TaxCategory.MarriedTwoIncomes)
+                        {
+                            <label>Partner Income:</label>
+                            <p>@Model.PartnerIncome</p>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <a asp-action="Salary" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-primary">View Salary Breakdown</a>
+                        <a asp-action="Edit" asp-route-id="@Model.UserProfileId" class="btn btn-secondary">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
