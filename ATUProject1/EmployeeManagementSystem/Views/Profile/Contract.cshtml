@@ -28,9 +28,26 @@
 
     .section-title {
         font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
     }
 
     .variable {
+        font-weight: bold;
+    }
+
+    .contract-details {
+        border: 1px solid #ccc;
+        padding: 15px;
+    }
+
+    .contract-details-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .contract-details-label {
         font-weight: bold;
     }
 </style>
@@ -41,24 +58,62 @@
     <div class="section">
         <div class="section-title">1. Employee Information</div>
         <p>
-            Name: <span class="variable">@Model.FirstName @Model.LastName</span><br>
-            Position: <span class="variable">@Model.Position</span><br>
-            Start Date: <span class="variable">@Model.StartDate.ToString("yyyy-MM-dd")</span>
+            <span class="variable">Name:</span> @Model.FirstName @Model.LastName<br>
+            <span class="variable">Position:</span> @Model.Position<br>
+            <span class="variable">Start Date:</span> @Model.StartDate.ToString("yyyy-MM-dd")
         </p>
     </div>
 
     <div class="section">
         <div class="section-title">2. Compensation</div>
-        <p>
-            Gross Yearly Salary: <span class="variable">@Model.YearlySalary.ToString("C")</span><br>
-            Employer Pension Contribution: @($"{Model.EmployerPensionContributionPercentage:F2}%")
-        </p>
+        <div class="contract-details">
+            <div class="contract-details-row">
+                <span class="contract-details-label">Gross Yearly Salary:</span>
+                <span class="variable">@Model.YearlySalary.ToString("C")</span>
+            </div>
+            <div class="contract-details-row">
+                <span class="contract-details-label">Employer Pension Contribution:</span>
+                <span class="variable">@($"{Model.EmployerPensionContributionPercentage:F2}%")</span>
+            </div>
+            <div class="contract-details-row">
+                <span class="contract-details-label">Employee Pension Contribution:</span>
+                <span class="variable">@($"{Model.EmployeePensionContributionPercentage:F2}%")</span>
+            </div>
+        </div>
     </div>
+
     <div class="section">
         <div class="section-title">3. Leave Days</div>
+        <div class="contract-details">
+            <div class="contract-details-row">
+                <span class="contract-details-label">Annual Leave Days:</span>
+                <span class="variable">@Model.AnnualLeaveDays</span>
+            </div>
+            <div class="contract-details-row">
+                <span class="contract-details-label">Sick Leave Days:</span>
+                <span class="variable">@Model.SickLeaveDays</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4. Employee Benefits</div>
         <p>
-            Annual Leave Days: <span class="variable">@Model.AnnualLeaveDays</span><br>
-            Sick Leave Days: <span class="variable">@Model.SickLeaveDays</span>
+            The employee will be eligible for the following benefits:<br>
+            - Health insurance<br>
+            - Retirement plans<br>
+            - Paid time off<br>
+            - Bonus and incentive programs<br>
+            - Employee discounts<br>
+            - Training and development opportunities<br>
+            - Other benefits as determined by the company
+        </p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">5. Termination</div>
+        <p>
+            The employment may be terminated by either party with written notice. In case of termination, the employee will be entitled to receive any accrued but unused compensation and benefits.
         </p>
     </div>
 </div>

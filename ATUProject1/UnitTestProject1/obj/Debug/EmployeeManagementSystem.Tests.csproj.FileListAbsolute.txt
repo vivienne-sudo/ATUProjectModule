@@ -1,0 +1,2 @@
+C:\Users\Vivie\source\repos\ATU Semester3\ATUProject1\UnitTestProject1\obj\Debug\EmployeeManagementSystem.Tests.csproj.AssemblyReference.cache
+C:\Users\Vivie\source\repos\ATU Semester3\ATUProject1\UnitTestProject1\obj\Debug\EmployeeManagementSystem.Tests.csproj.CoreCompileInputs.cache

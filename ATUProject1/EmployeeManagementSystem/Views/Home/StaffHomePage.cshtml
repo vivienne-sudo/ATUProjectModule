@@ -10,22 +10,9 @@
         </div>
     </div>
 
-    <!-- Calendar -->
+    
     <div id="calendar" class="mb-5"></div>
 
-    <!-- Annual Leave -->
-    <div class="widget">
-        <h3>Annual Leave</h3>
-        <p>Days available: <span id="annualLeaveDays">@Model.AnnualLeaveDays</span></p>
-        <a asp-controller="ApplyForLeave" asp-action="Index" asp-route-leaveType="Annual" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-lilac">Apply for Annual Leave</a>
-    </div>
-
-    <!-- Sick Leave -->
-    <div class="widget">
-        <h3>Sick Leave</h3>
-        <p>Days available: <span id="sickLeaveDays">@Model.SickLeaveDays</span></p>
-        <a asp-controller="ApplyForLeave" asp-action="Index" asp-route-leaveType="Sick" asp-route-userProfileId="@Model.UserProfileId" class="btn btn-lilac">Apply for Sick Leave</a>
-    </div>
 
     @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
