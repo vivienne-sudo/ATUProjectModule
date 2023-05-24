@@ -3,74 +3,78 @@
     ViewData["Title"] = "Salary Details";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Salary" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+            <form asp-action="Salary" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
 
-    <input type="hidden" asp-for="UserProfileId" />
-    <!-- Add these new form groups to display gross and net salary -->
-<div class="form-group">
-    <label asp-for="GrossYearlySalary">Gross Yearly Salary</label>
-    <input asp-for="GrossYearlySalary" class="form-control" readonly />
-</div>
+                <input type="hidden" asp-for="UserProfileId" />
 
-<div class="form-group">
-    <label asp-for="NetYearlySalary">Net Yearly Salary</label>
-    <input asp-for="NetYearlySalary" class="form-control" readonly />
-</div>
+                <div class="form-group">
+                    <label asp-for="GrossYearlySalary">Gross Yearly Salary</label>
+                    <input asp-for="GrossYearlySalary" class="form-control" readonly />
+                </div>
 
-<div class="form-group">
-    <label asp-for="GrossMonthlySalary">Gross Monthly Salary</label>
-    <input asp-for="GrossMonthlySalary" class="form-control" readonly />
-</div>
+                <div class="form-group">
+                    <label asp-for="NetYearlySalary">Net Yearly Salary</label>
+                    <input asp-for="NetYearlySalary" class="form-control" readonly />
+                </div>
 
-<div class="form-group">
-    <label asp-for="NetMonthlySalary">Net Monthly Salary</label>
-    <input asp-for="NetMonthlySalary" class="form-control" readonly />
-</div>
+                <div class="form-group">
+                    <label asp-for="GrossMonthlySalary">Gross Monthly Salary</label>
+                    <input asp-for="GrossMonthlySalary" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="GrossWeeklySalary">Gross Weekly Salary</label>
-        <input asp-for="GrossWeeklySalary" class="form-control" readonly />
-    </div>
+                <div class="form-group">
+                    <label asp-for="NetMonthlySalary">Net Monthly Salary</label>
+                    <input asp-for="NetMonthlySalary" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="NetWeeklySalary">Net Weekly Salary</label>
-        <input asp-for="NetWeeklySalary" class="form-control" readonly />
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="EmployeePensionContributionPercentage"></label>
-        <input asp-for="EmployeePensionContributionPercentage" class="form-control" />
-        <span asp-validation-for="EmployeePensionContributionPercentage" class="text-danger"></span>
-    </div>
+                <div class="form-group">
+                    <label asp-for="GrossWeeklySalary">Gross Weekly Salary</label>
+                    <input asp-for="GrossWeeklySalary" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="EmployeePensionContribution"></label>
-        <input asp-for="EmployeePensionContribution" class="form-control" readonly />
-    </div>
+                <div class="form-group">
+                    <label asp-for="NetWeeklySalary">Net Weekly Salary</label>
+                    <input asp-for="NetWeeklySalary" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="EmployerPensionContributionPercentage"></label>
-        <input asp-for="EmployerPensionContributionPercentage" class="form-control" readonly />
-    </div>
+                <div class="form-group">
+                    <label asp-for="EmployeePensionContributionPercentage">Employee Pension Contribution Percentage</label>
+                    <input asp-for="EmployeePensionContributionPercentage" class="form-control" />
+                    <span asp-validation-for="EmployeePensionContributionPercentage" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="EmployerPensionContribution"></label>
-        <input asp-for="EmployerPensionContribution" class="form-control" readonly />
-    </div>
+                <div class="form-group">
+                    <label asp-for="EmployeePensionContribution">Employee Pension Contribution</label>
+                    <input asp-for="EmployeePensionContribution" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="PartnerIncome"></label>
-        <input asp-for="PartnerIncome" class="form-control" readonly />
-    </div>
+                <div class="form-group">
+                    <label asp-for="EmployerPensionContributionPercentage">Employer Pension Contribution Percentage</label>
+                    <input asp-for="EmployerPensionContributionPercentage" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save</button>
-    </div>
+                <div class="form-group">
+                    <label asp-for="EmployerPensionContribution">Employer Pension Contribution</label>
+                    <input asp-for="EmployerPensionContribution" class="form-control" readonly />
+                </div>
 
-    <div class="form-group">
-        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Back</button>
-    </div>
-</form>
+                <div class="form-group">
+                    <label asp-for="PartnerIncome">Partner Income</label>
+                    <input asp-for="PartnerIncome" class="form-control" readonly />
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Back</button>
+                </div>
+            </form>
+        </div>
+        </div>
+        </div>
+
