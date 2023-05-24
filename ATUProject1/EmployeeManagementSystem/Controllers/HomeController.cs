@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SendGrid.Helpers.Mail;
 using System.Diagnostics;
 using System.Security.Claims;
 
 namespace EmployeeManagementSystem.Controllers
-{
+{ 
+    /// <summary>
+ /// Controller responsible for handling home-related actions.
+ /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -25,9 +27,12 @@ namespace EmployeeManagementSystem.Controllers
             _signInManager = signInManager;
         }
 
- 
 
-    [Authorize(Roles = "Admin")]
+        /// <summary>
+        /// Displays the admin home page.
+        /// </summary>
+        /// <returns>The admin home page view.</returns>
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AdminHomePage()
         {
             var currentAdmin = await _userManager.GetUserAsync(User);
@@ -45,7 +50,10 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
-
+        /// <summary>
+        /// Displays the home page based on the user's role.
+        /// </summary>
+        /// <returns>The appropriate home page view.</returns>
         public async Task<IActionResult> Index()
         {
             // Check if the user is logged in
@@ -72,12 +80,20 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
-
+        /// <summary>
+        /// Displays the privacy page.
+        /// </summary>
+        /// <returns>The privacy view.</returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
+
+        /// <summary>
+        /// Displays the staff home page.
+        /// </summary>
+        /// <returns>The staff home page view.</returns>
         [Authorize]
         public async Task<IActionResult> StaffHomePage()
         {
@@ -100,8 +116,10 @@ namespace EmployeeManagementSystem.Controllers
             return View(viewModel);
         }
 
-
-
+        /// <summary>
+        /// Handles the error page.
+        /// </summary>
+        /// <returns>The error view.</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
