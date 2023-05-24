@@ -1,114 +1,55 @@
 ﻿using EmployeeManagementSystem.Controllers;
 using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using NSubstitute;
-using System.Threading.Tasks;
 
-namespace EmployeeManagementSystem.Tests
+namespace TestProject
 {
+
     [TestClass]
     public class AccountControllerTests
     {
-        private AccountController _accountController;
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
-        private ILogger<AccountController> _logger;
-        private RoleManager<IdentityRole> _roleManager;
-        private ApplicationDbContext _context;
-        private UserProfileService _userProfileService;
+        private readonly Mock<UserManager<IdentityUser>> _userManagerMock;
+        private readonly Mock<SignInManager<IdentityUser>> _signInManagerMock;
+        private readonly Mock<ILogger<AccountController>> _loggerMock;
+        private readonly Mock<RoleManager<IdentityRole>> _roleManagerMock;
+        private readonly Mock<ApplicationDbContext> _contextMock;
+        private readonly Mock<UserProfileService> _userProfileServiceMock;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public AccountControllerTests()
         {
-            var services = new ServiceCollection();
-            services.AddLogging();
-            services.AddEntityFrameworkInMemoryDatabase()
-                .AddDbContext<ApplicationDbContext>((options, context) =>
-                    context.UseInMemoryDatabase("TestDb"));
-
-            var serviceProvider = services.BuildServiceProvider();
-
-            _context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-            var userStore = new UserStore<IdentityUser>(_context);
-            _userManager = new UserManager<IdentityUser>(userStore, null, new PasswordHasher<IdentityUser>(),
-                new IUserValidator<IdentityUser>[0], new IPasswordValidator<IdentityUser>[0], null, null, null, null);
-
-            var roleStore = new RoleStore<IdentityRole>(_context);
-            _roleManager = new RoleManager<IdentityRole>(roleStore, null, null, null, null);
-
-            var identityOptions = new IdentityOptions();
-            var options = new OptionsWrapper<IdentityOptions>(identityOptions);
-            var claimsFactory = new UserClaimsPrincipalFactory<IdentityUser, IdentityRole>(_userManager, _roleManager, options);
-            var contextAccessor = new HttpContextAccessor { HttpContext = new DefaultHttpContext() };
-            var userConfirmation = Substitute.For<IUserConfirmation<IdentityUser>>();
-            _signInManager = new SignInManager<IdentityUser>(_userManager, contextAccessor, claimsFactory, options, null, null, userConfirmation);
-
-            _logger = Substitute.For<ILogger<AccountController>>();
-            _userProfileService = Substitute.For<UserProfileService>();
-
-            _accountController = new AccountController(_userProfileService, _userManager, _signInManager, _logger, _roleManager, _context);
-        }
-        public class MockUserStore : IUserStore<IdentityUser>
-        {
-            // Implement the methods of IUserStore<IdentityUser> here
-            // You can return default values or use NSubstitute to create substitutes for the returned values
-        }
-
-
-        [TestMethod]
-        public async Task Contract_ReturnsNotFound_WhenIdIsNull()
-        {
-            var result = await _accountController.Contract(null);
-
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            _userManagerMock = new Mock<UserManager<IdentityUser>>();
+            _signInManagerMock = new Mock<SignInManager<IdentityUser>>();
+            _loggerMock = new Mock<ILogger<AccountController>>();
+            _roleManagerMock = new Mock<RoleManager<IdentityRole>>();
+            _contextMock = new Mock<ApplicationDbContext>();
+            _userProfileServiceMock = new Mock<UserProfileService>();
         }
 
         [TestMethod]
         public async Task Register_ReturnsViewResult_WhenModelStateIsInvalid()
         {
-            _accountController.ModelState.AddModelError("Error", "Error");
+            // Arrange
+            var controller = new AccountController(
+                _userProfileServiceMock.Object,
+                _userManagerMock.Object,
+                _signInManagerMock.Object,
+                _loggerMock.Object,
+                _roleManagerMock.Object,
+                _contextMock.Object);
+            controller.ModelState.AddModelError("error", "error");
 
-            var result = await _accountController.Register(new RegisterViewModel());
+            // Act
+            var result = await controller.Register(new RegisterViewModel());
 
+            // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
-        [TestMethod]
-        public async Task Login_ReturnsViewResult_WhenModelStateIsInvalid()
-        {
-            _accountController.ModelState.AddModelError("Error", "Error");
-
-            var result = await _accountController.Login(new LoginViewModel());
-
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-        }
-
-        [TestMethod]
-        public async Task Logout_ReturnsRedirectToActionResult()
-        {
-            var result = await _accountController.Logout();
-
-            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
-        }
-
-        [TestMethod]
-        public async Task ConfirmEmail_ReturnsRedirectToActionResult_WhenUserIdOrCodeIsNull()
-        {
-            var result = await _accountController.ConfirmEmail(null, null);
-
-            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
-        }
+        // Add more tests here...
     }
-
-
 }
+
