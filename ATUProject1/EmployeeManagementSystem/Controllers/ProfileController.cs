@@ -238,8 +238,6 @@ namespace EmployeeManagementSystem.Controllers
             return View(userProfile);
         }
 
-
-
         /// <summary>
         /// Displays the salary details for a user.
         /// </summary>
@@ -269,12 +267,12 @@ namespace EmployeeManagementSystem.Controllers
 
             // Calculate the tax liability, net salary, and pension contributions
             decimal taxLiability = TaxAndPensionCalculator.CalculateTax(
-    userProfile.YearlySalary,
-    userProfile.EmployeePensionContributionPercentage,
-    salaryViewModel.TaxCredit,
-    salaryViewModel.PartnerIncome ?? 0,
-    salaryViewModel.TaxCategory
-);
+                userProfile.YearlySalary,
+                userProfile.EmployeePensionContributionPercentage,
+                salaryViewModel.TaxCredit,
+                salaryViewModel.PartnerIncome ?? 0,
+                salaryViewModel.TaxCategory
+            );
 
             decimal employeePensionContribution = userProfile.YearlySalary * (userProfile.EmployeePensionContributionPercentage / 100);
             decimal employerPensionContribution = userProfile.YearlySalary * (userProfile.EmployerPensionContributionPercentage / 100);
@@ -297,8 +295,6 @@ namespace EmployeeManagementSystem.Controllers
 
             return View(salaryViewModel);
         }
-
-
 
         /// <summary>
         /// Updates the salary details for a user.
@@ -340,7 +336,7 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 return RedirectToAction(nameof(Salary), new { userProfileId = salaryViewModel.UserProfileId });
             }
-                return View(salaryViewModel);
+            return View(salaryViewModel);
         }
 
         /// <summary>
@@ -379,7 +375,9 @@ namespace EmployeeManagementSystem.Controllers
                 YearlySalary = userProfile.YearlySalary,
                 Position = userProfile.Position,
                 StartDate = userProfile.StartDate == DateTime.MinValue ? DateTime.Now : userProfile.StartDate,
-                EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage
+                EmployerPensionContributionPercentage = userProfile.EmployerPensionContributionPercentage,
+                AnnualLeaveDays = userProfile.AnnualLeaveDays ?? 0,
+                SickLeaveDays = userProfile.SickLeaveDays ?? 0
             };
 
             return View(editSalaryViewModel);
@@ -391,9 +389,7 @@ namespace EmployeeManagementSystem.Controllers
         /// <param name="userProfileId">The ID of the user profile.</param>
         /// <param name="editSalaryViewModel">The salary view model containing the updated details.</param>
         /// <returns>The updated salary view.</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary,Position,StartDate,EmployerPensionContributionPercentage")] EditSalaryViewModel editSalaryViewModel)
+        public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary,Position,StartDate,EmployerPensionContributionPercentage,AnnualLeaveDays,SickLeaveDays")] EditSalaryViewModel editSalaryViewModel)
         {
             if (userProfileId != editSalaryViewModel.UserProfileId)
             {
@@ -407,6 +403,8 @@ namespace EmployeeManagementSystem.Controllers
                 userProfile.Position = editSalaryViewModel.Position;
                 userProfile.StartDate = editSalaryViewModel.StartDate;
                 userProfile.EmployerPensionContributionPercentage = editSalaryViewModel.EmployerPensionContributionPercentage; // Fix this line
+                userProfile.AnnualLeaveDays = editSalaryViewModel.AnnualLeaveDays;
+                userProfile.SickLeaveDays = editSalaryViewModel.SickLeaveDays;
 
                 try
                 {
@@ -430,4 +428,6 @@ namespace EmployeeManagementSystem.Controllers
         }
 
     }
+
 }
+
