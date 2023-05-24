@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -20,7 +21,7 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-        
+
         /// <summary>
         /// Displays the list of admin notifications.
         /// </summary>
@@ -67,7 +68,6 @@ namespace EmployeeManagementSystem.Controllers
 
             return View(viewedNotifications);
         }
-
     }
 }
 
