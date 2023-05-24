@@ -4,23 +4,13 @@
 }
 
 <h2>Staff Home Page</h2>
-<a asp-controller="Profile" asp-action="Contract" asp-route-id="@Model.UserProfileId">View Contract</a>
 
 <!-- Calendar -->
 <div id="calendar"></div>
 
-<!-- Annual Leave -->
-<div class="widget">
-    <h3>Annual Leave</h3>
-    <p>Days available: <span id="annualLeaveDays">0</span></p>
-    <button id="applyAnnualLeave">Apply for Annual Leave</button>
-</div>
-
-<!-- Sick Leave -->
-<div class="widget">
-    <h3>Sick Leave</h3>
-    <p>Days available: <span id="sickLeaveDays">0</span></p>
-    <button id="applySickLeave">Apply for Sick Leave</button>
+<!-- Contract -->
+<div class="text-center mt-4">
+    <a class="btn btn-primary" asp-controller="Profile" asp-action="Contract" asp-route-id="@Model.UserProfileId">Employment Contract</a>
 </div>
 
 <!-- Other widgets -->
@@ -31,7 +21,7 @@
         $('#calendar').fullCalendar({
             // Configure calendar options here
             events: @Html.Raw(Json.Serialize(Model.BankHolidays.Select(bh => new { title = "Bank Holiday", start = bh.Date.ToString("yyyy-MM-dd") })))
-       });
+           });
 
         // Update available leave days
         $('#annualLeaveDays').text(/* Get available annual leave days from the server */);
@@ -57,3 +47,4 @@
         vertical-align: top;
     }
 </style>
+
