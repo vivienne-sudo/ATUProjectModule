@@ -7,6 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementSystem.Controllers
 {
+
+    /// <summary>
+    /// Controller responsible for handling account-related actions, such as registration and login.
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
@@ -33,6 +37,12 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
           
         }
+
+        /// <summary>
+        /// Displays the contract view for a specific user.
+        /// </summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <returns>The contract view.</returns>
         public async Task<IActionResult> Contract(string id)
         {
             if (id == null)
@@ -51,6 +61,10 @@ namespace EmployeeManagementSystem.Controllers
             return View(userProfile);
         }
 
+        /// <summary>
+        /// Displays the registration form.
+        /// </summary>
+        /// <returns>The registration view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
@@ -58,6 +72,15 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Handles the registration form submission.
+        /// </summary>
+        /// <param name="model">The registration view model.</param>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>The result of the registration attempt.</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -112,7 +135,11 @@ namespace EmployeeManagementSystem.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// Displays the login form.
+        /// </summary>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>The login view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -130,6 +157,13 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// Handles the login form submission.
+        /// </summary>
+        /// <param name="model">The login view model.</param>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>The result of the login attempt.</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -184,8 +218,10 @@ namespace EmployeeManagementSystem.Controllers
             return View(model);
         }
 
-
-
+        /// <summary>
+        /// Displays the lockout view.
+        /// </summary>
+        /// <returns>The lockout view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
@@ -193,6 +229,10 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Logs out the current user.
+        /// </summary>
+        /// <returns>A redirect to the home page.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -206,6 +246,11 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        /// <summary>
+        /// Redirects to the local URL if it is a valid URL, otherwise redirects to the home page.
+        /// </summary>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>A redirect to the local URL or the home page.</returns>
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -218,6 +263,12 @@ namespace EmployeeManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the email confirmation view.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="code">The confirmation code.</param>
+        /// <returns>The email confirmation view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)

@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementSystem.Controllers
 {
+    /// <summary>
+    /// Controller responsible for handling admin notifications.
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class AdminNotificationsController : Controller
     {
@@ -17,7 +20,11 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        
+        /// <summary>
+        /// Displays the list of admin notifications.
+        /// </summary>
+        /// <returns>The notifications view.</returns>
         public async Task<IActionResult> Index()
         {
             var currentAdminId = _userManager.GetUserId(User);
@@ -28,6 +35,11 @@ namespace EmployeeManagementSystem.Controllers
             return View(notifications);
         }
 
+        /// <summary>
+        /// Marks a notification as viewed.
+        /// </summary>
+        /// <param name="id">The ID of the notification.</param>
+        /// <returns>A redirect to the notifications view.</returns>
         public async Task<IActionResult> MarkAsViewed(int id)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -42,6 +54,11 @@ namespace EmployeeManagementSystem.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        /// <summary>
+        /// Displays the list of viewed notifications.
+        /// </summary>
+        /// <returns>The viewed notifications view.</returns>
         public async Task<IActionResult> ViewedNotifications()
         {
             var viewedNotifications = await _context.Notifications
