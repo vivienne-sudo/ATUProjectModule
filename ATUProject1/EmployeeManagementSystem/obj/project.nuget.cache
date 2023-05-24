@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9SKjTqbEHPGHjg/oboI1/JKJVY0dd3uo231uSIb73MFx1P+K/nZoW5bfdFu4GMt2HcTFE+8nNErcMNZJW9gvbg==",
+  "dgSpecHash": "MVLSxx0pJ4rFIwKZqs5v4lZnbkr5oHjTHudeQI5y4/s7mphLJlPVYX+er6lRIKWfbTfhm4PisMq652WJRxnIOQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
   "expectedPackageFiles": [
@@ -63,8 +63,11 @@
     "C:\\Users\\Vivie\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\mstest.testadapter\\3.0.2\\mstest.testadapter.3.0.2.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\mstest.testframework\\3.0.2\\mstest.testframework.3.0.2.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\nuget.frameworks\\5.11.0\\nuget.frameworks.5.11.0.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\nunit\\3.13.3\\nunit.3.13.3.nupkg.sha512",
+    "C:\\Users\\Vivie\\.nuget\\packages\\nunit3testadapter\\4.4.2\\nunit3testadapter.4.4.2.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.4\\sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\sqlitepclraw.core\\2.1.4\\sqlitepclraw.core.2.1.4.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.4\\sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512",

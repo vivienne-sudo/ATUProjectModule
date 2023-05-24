@@ -84,6 +84,14 @@
               "target": "Package",
               "version": "[17.6.0, )"
             },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.4.2, )"
+            },
             "fullcalendar": {
               "target": "Package",
               "version": "[3.9.0, )"
