@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementSystem.Controllers
 {
+    /// <summary>
+    /// Controller responsible for handling profile-related actions.
+    /// </summary>
     [Authorize]
     public class ProfileController : Controller
     {
@@ -21,7 +24,11 @@ namespace EmployeeManagementSystem.Controllers
             _context = context;
             _userProfileService = userProfileService;
         }
-
+        /// <summary>
+        /// Displays the contract details for a user.
+        /// </summary>
+        /// <param name="id">The ID of the user profile.</param>
+        /// <returns>The contract view.</returns>
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Contract(string id)
@@ -42,7 +49,12 @@ namespace EmployeeManagementSystem.Controllers
             return View(userProfile); 
         }
 
-
+        /// <summary>
+        /// Creates a new notification for all admin users.
+        /// </summary>
+        /// <param name="message">The notification message.</param>
+        /// <param name="firstName">The first name of the user associated with the notification.</param>
+        /// <param name="lastName">The last name of the user associated with the notification.</param>
         private async Task CreateNotificationAsync(string message, string firstName, string lastName)
         {
             // Get the list of admin users
@@ -66,6 +78,10 @@ namespace EmployeeManagementSystem.Controllers
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Displays the profile details for the current user.
+        /// </summary>
+        /// <returns>The profile view.</returns>
         [HttpGet]
         public async Task<IActionResult> Index(string userId)
         {
@@ -81,6 +97,12 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// Updates the profile details for the current user.
+        /// </summary>
+        /// <param name="model">The profile view model containing the updated details.</param>
+        /// <returns>The updated profile view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(ProfileViewModel model)
@@ -156,6 +178,12 @@ namespace EmployeeManagementSystem.Controllers
             return View(model);
         }
 
+
+        /// <summary>
+        /// Retrieves the details for editing a user profile.
+        /// </summary>
+        /// <param name="id">The ID of the user profile to edit.</param>
+        /// <returns>The profile view for editing.</returns>
         public async Task<IActionResult> Edit(int id)
         {
             var userProfile = await _context.UserProfiles.FindAsync(id);
@@ -186,6 +214,10 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
+        /// <summary>
+        /// Displays the details for the current user's profile.
+        /// </summary>
+        /// <returns>The details view for the user profile.</returns>
         [Authorize]
         public async Task<IActionResult> Details()
         {
@@ -206,6 +238,13 @@ namespace EmployeeManagementSystem.Controllers
             return View(userProfile);
         }
 
+
+
+        /// <summary>
+        /// Displays the salary details for a user.
+        /// </summary>
+        /// <param name="userProfileId">The ID of the user profile.</param>
+        /// <returns>The salary view.</returns>
         [HttpGet]
         public async Task<IActionResult> Salary(int? userProfileId)
         {
@@ -260,6 +299,13 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
+
+        /// <summary>
+        /// Updates the salary details for a user.
+        /// </summary>
+        /// <param name="userProfileId">The ID of the user profile.</param>
+        /// <param name="salaryViewModel">The salary view model containing the updated details.</param>
+        /// <returns>The updated salary view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Salary(int userProfileId, [Bind("UserProfileId,GrossYearlySalary,NetYearlySalary,GrossMonthlySalary,NetMonthlySalary,GrossWeeklySalary,NetWeeklySalary,TaxCategory,TaxCredit,TaxLiability,EmployeePensionContributionPercentage,EmployeePensionContribution,EmployerPensionContributionPercentage,EmployerPensionContribution,PartnerIncome")] SalaryViewModel salaryViewModel)
@@ -297,7 +343,10 @@ namespace EmployeeManagementSystem.Controllers
                 return View(salaryViewModel);
         }
 
-
+        /// <summary>
+        /// Displays all staff profiles.
+        /// </summary>
+        /// <returns>The view displaying all staff profiles.</returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AllStaff()
         {
@@ -305,6 +354,11 @@ namespace EmployeeManagementSystem.Controllers
             return View(staffProfiles);
         }
 
+        /// <summary>
+        /// Retrieves the details for editing a user's salary.
+        /// </summary>
+        /// <param name="userProfileId">The ID of the user profile.</param>
+        /// <returns>The salary edit view.</returns>
         [HttpGet]
         public async Task<IActionResult> EditSalary(int? userProfileId)
         {
@@ -331,6 +385,12 @@ namespace EmployeeManagementSystem.Controllers
             return View(editSalaryViewModel);
         }
 
+        /// <summary>
+        /// Updates the salary details for a user.
+        /// </summary>
+        /// <param name="userProfileId">The ID of the user profile.</param>
+        /// <param name="editSalaryViewModel">The salary view model containing the updated details.</param>
+        /// <returns>The updated salary view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditSalary(int userProfileId, [Bind("UserProfileId,YearlySalary,Position,StartDate,EmployerPensionContributionPercentage")] EditSalaryViewModel editSalaryViewModel)
