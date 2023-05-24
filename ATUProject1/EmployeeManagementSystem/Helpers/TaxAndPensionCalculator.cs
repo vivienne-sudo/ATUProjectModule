@@ -1,9 +1,16 @@
 ﻿using EmployeeManagementSystem.Models;
 
+
 namespace EmployeeManagementSystem.Helpers
 {
+    /// <summary>
+    /// A helper class for calculating tax and pension contributions.
+    /// </summary>
     public static class TaxAndPensionCalculator
     {
+        /// <summary>
+        /// Enumeration representing marital status options.
+        /// </summary>
         public enum MaritalStatus
         {
             Single,
@@ -11,6 +18,16 @@ namespace EmployeeManagementSystem.Helpers
             MarriedTwoIncomes,
             OneParentFamily
         }
+
+        /// <summary>
+        /// Calculates the tax amount based on the provided parameters.
+        /// </summary>
+        /// <param name="yearlySalary">The yearly salary of the employee.</param>
+        /// <param name="employeePensionContributionPercentage">The employee's pension contribution percentage.</param>
+        /// <param name="taxCredit">The tax credit amount.</param>
+        /// <param name="partnerIncome">The income of the partner (applicable for MarriedTwoIncomes category).</param>
+        /// <param name="taxCategory">The tax category.</param>
+        /// <returns>The calculated tax amount.</returns>
         public static decimal CalculateTax(decimal yearlySalary, decimal employeePensionContributionPercentage, decimal taxCredit, decimal partnerIncome, TaxCategory taxCategory)
         {
             decimal pensionContribution = yearlySalary * (employeePensionContributionPercentage / 100);
