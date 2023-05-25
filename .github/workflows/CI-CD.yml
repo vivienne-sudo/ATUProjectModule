@@ -26,5 +26,20 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release --no-restore ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
 
+  test:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        dotnet: ['7.0.x']
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+
       - name: Run tests
         run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
