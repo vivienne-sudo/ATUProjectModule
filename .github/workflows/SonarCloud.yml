@@ -43,8 +43,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
       - name: Build the project
-        run: dotnet build --configuration Release
-        working-directory: ATUProject1/EmployeeManagementSystem
+        run: dotnet build --configuration Release --no-restore ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.sln
 
       - name: Run SonarScanner
         env:
@@ -52,5 +51,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"vivienne-sudo_ATUProjectModule" /o:"vivienne-sudo" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.visualstudio.version=16.0
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"vivienne-sudo_ATUProjectModule" /o:"vivienne-sudo" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.visualstudio.version=14.0.25420.1 /d:sonar.cs.vscoveragexml.reportsPaths=**/coverage/cobertura.xml
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
