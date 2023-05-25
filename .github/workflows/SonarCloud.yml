@@ -43,7 +43,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
       - name: Set MSBuild version
-        run: dotnet tool install --global MSBuild --version 14.0.25420.1
+        run: dotnet tool install --global MSBuild.Tools --version 14.0.25420.1
 
       - name: Build the project
         run: MSBuild /version
