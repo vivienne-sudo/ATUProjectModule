@@ -21,4 +21,4 @@ jobs:
       run: dotnet build --configuration Release ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
 
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
+      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName!=ATUProject1.TestProject.Program ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
