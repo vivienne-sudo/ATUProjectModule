@@ -25,4 +25,8 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Devopstestfolder\" />
+  </ItemGroup>
+
 </Project>
