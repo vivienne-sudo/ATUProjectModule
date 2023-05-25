@@ -44,6 +44,7 @@ jobs:
 
       - name: Build the project
         run: dotnet build --configuration Release
+        working-directory: ATUProject1/EmployeeManagementSystem
 
       - name: Run SonarScanner
         env:
