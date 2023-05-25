@@ -39,7 +39,7 @@ jobs:
       - name: Install MSBuild 14.0.25420.1
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
-          dotnet tool install --global MSBuild --version 14.0.25420.1
+        
 
       - name: Build and analyze
         env:
