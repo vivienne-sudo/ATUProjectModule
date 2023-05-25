@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\TestProject\\TestProject.csproj": {}
+    "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\TestProject\\TestProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj": {
+    "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
         "projectName": "EmployeeManagementSystem",
-        "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
+        "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
         "packagesPath": "C:\\Users\\Vivie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\obj\\",
+        "outputPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -120,14 +120,14 @@
         }
       }
     },
-    "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\TestProject\\TestProject.csproj": {
+    "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\TestProject\\TestProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\TestProject\\TestProject.csproj",
+        "projectUniqueName": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\TestProject\\TestProject.csproj",
         "projectName": "TestProject",
-        "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\TestProject\\TestProject.csproj",
+        "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\TestProject\\TestProject.csproj",
         "packagesPath": "C:\\Users\\Vivie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\TestProject\\obj\\",
+        "outputPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\TestProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -149,8 +149,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj": {
-                "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj"
+              "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj": {
+                "projectPath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj"
               }
             }
           }

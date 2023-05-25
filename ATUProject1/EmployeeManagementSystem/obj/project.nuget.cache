@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MVLSxx0pJ4rFIwKZqs5v4lZnbkr5oHjTHudeQI5y4/s7mphLJlPVYX+er6lRIKWfbTfhm4PisMq652WJRxnIOQ==",
+  "dgSpecHash": "t4JBD0aDo7rVSUKm+heaNrR4h0iAv0ivDLb8PZs3dFmRYaYu3mMB5CnLMgaB9+5D2Oxuy8MgBhFIHhvV9MM4Lw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
+  "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vivie\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
