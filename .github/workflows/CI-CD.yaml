@@ -10,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: '7.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.x'
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
+      - name: Build with dotnet
+        run: dotnet build --configuration Release --no-restore ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
 
-    - name: Run tests
-      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName!=ATUProject1.TestProject.Program ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
