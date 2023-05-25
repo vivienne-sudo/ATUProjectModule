@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BtoS/3fEwX1gCwc05SRV5PqGXANMV2Tm1APolN3iwr0UiiBYdvbaU1OEyxN7W4ytMpPbNErGvhVn0WjErske5Q==",
+  "dgSpecHash": "ZOwvxrFGWK7BKs+tn4A5b9RfN7YTIgNrtq4DJfhMDWeu8BTR6BJHdNOIa+wZWAyrjlnh3VYK47r4bU+0I+LMFA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vivie\\source\\repos\\ATU Semester3\\DevOpsPipeline\\ATUProject1\\TestProject\\TestProject.csproj",
+  "projectFilePath": "C:\\Users\\Vivie\\Source\\Repos\\vivienne-sudo\\ATUProjectModule\\ATUProject1\\TestProject\\TestProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vivie\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Vivie\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

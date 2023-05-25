@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using EmployeeManagementSystem.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using EmployeeManagementSystem.Controllers;
+
 
 namespace EmployeeManagementSystem
 {

@@ -9,11 +9,11 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EmployeeManagementSystem
 build_property.RootNamespace = EmployeeManagementSystem
-build_property.ProjectDir = C:\Users\Vivie\Source\Repos\vivienne-sudo\ATUProjectModule\ATUProject1\EmployeeManagementSystem\
+build_property.ProjectDir = C:\Users\Vivie\source\repos\vivienne-sudo\ATUProjectModule\ATUProject1\EmployeeManagementSystem\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Vivie\Source\Repos\vivienne-sudo\ATUProjectModule\ATUProject1\EmployeeManagementSystem
+build_property.MSBuildProjectDirectory = C:\Users\Vivie\source\repos\vivienne-sudo\ATUProjectModule\ATUProject1\EmployeeManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Areas/Identity/Pages/_ViewStart.cshtml]

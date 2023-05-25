@@ -1,0 +1,109 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = EmployeeManagementSystem
+build_property.RootNamespace = EmployeeManagementSystem
+build_property.ProjectDir = C:\Users\Vivie\source\repos\vivienne-sudo\ATUProjectModule\ATUProject1\EmployeeManagementSystem\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Vivie\source\repos\vivienne-sudo\ATUProjectModule\ATUProject1\EmployeeManagementSystem
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Account/EmailConfirmed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFbWFpbENvbmZpcm1lZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/AdminNotifications/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ob3RpZmljYXRpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/AdminNotifications/ViewedNotifications.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ob3RpZmljYXRpb25zXFZpZXdlZE5vdGlmaWNhdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Home/AdminHomePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZG1pbkhvbWVQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Home/StaffHomePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGFmZkhvbWVQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Profile/AllStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxBbGxTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Profile/Contract.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxDb250cmFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Profile/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Profile/EditSalary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxFZGl0U2FsYXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Profile/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Profile/Salary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxTYWxhcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Shared/_AddEventPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZGRFdmVudFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Vivie/Source/Repos/vivienne-sudo/ATUProjectModule/ATUProject1/EmployeeManagementSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-99m38ankfr
