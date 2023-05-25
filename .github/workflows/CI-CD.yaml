@@ -18,7 +18,7 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --no-restore --main:ATUProjectModule/ATUProject1/EmployeeManagementSystem/Program.cs
+        run: dotnet build --configuration Release --no-restore ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
 
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal --main:ATUProjectModule/ATUProject1/EmployeeManagementSystem/Program.cs
+        run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
