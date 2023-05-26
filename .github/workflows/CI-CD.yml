@@ -5,15 +5,18 @@ on:
     branches:
       - MainEMSCompleted
 
+  schedule:
+    - cron: "0 0 * * *"
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '7.0.x'
 
@@ -34,12 +37,29 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         dotnet: ['7.0.x']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
 
       - name: Run tests
         run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
+
+  dependabot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Run Dependabot
+        uses: dependabot/dependabot-core@master
+        with:
+          args: --package-ecosystem nuget --directory /ATUProject1/EmployeeManagementSystem
