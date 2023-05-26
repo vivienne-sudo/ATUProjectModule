@@ -29,13 +29,6 @@ jobs:
          dotnet publish --configuration Release --output ./published
          ls -la ./published
 
-          
-      - name: Rename .deps.json in published directory
-        run: |
-          cd ${{ env.APP_DIRECTORY }}/published
-          mv EmployeeManagementSystem.deps.json deps.json
-
-
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
