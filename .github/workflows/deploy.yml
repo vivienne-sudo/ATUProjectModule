@@ -8,6 +8,7 @@ on:
 env:
   DOTNET_VERSION: '7.0.x'
   APP_DIRECTORY: './ATUProject1/EmployeeManagementSystem'
+  REGION: 'europe-west'
 
 jobs:
   deploy:
@@ -38,4 +39,4 @@ jobs:
       - name: Deploy to Google Cloud Run
         run: |
           cd ${{ env.APP_DIRECTORY }}/published
-          gcloud run deploy my-app --image ./EmployeeManagementSystem --platform managed
+          gcloud run deploy my-app --image ./EmployeeManagementSystem --platform managed --region ${{ env.REGION }}
