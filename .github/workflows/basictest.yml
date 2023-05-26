@@ -1,0 +1,44 @@
+name: Basic Check Workflow
+
+on:
+  push:
+    branches:
+      - MainEMSCompleted
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Clear NuGet package cache
+        run: dotnet nuget locals all --clear
+
+      - name: Restore NuGet packages
+        run: dotnet restore ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release --no-restore ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
