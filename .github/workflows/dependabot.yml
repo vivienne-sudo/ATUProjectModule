@@ -1,0 +1,27 @@
+name: Dependabot
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Run Dependabot
+        uses: dependabot/dependabot-core@master
+        with:
+          args: --package-ecosystem nuget --directory /ATUProject1/EmployeeManagementSystem
+
+
+
+
