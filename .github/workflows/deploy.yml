@@ -42,6 +42,7 @@ jobs:
 
       - name: Deploy to Google Cloud
         run: |
-         cd ${{ env.APP_DIRECTORY }}/published
-         gcloud app deploy --quiet --deps-path employeemanagementsystem.deps.json
+          cd ${{ env.APP_DIRECTORY }}/published
+           gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem
+          gcloud run deploy my-app --image gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem --platform managed
 
