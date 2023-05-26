@@ -24,11 +24,11 @@ jobs:
 
       - name: Build and Publish
         run: |
-           cd ./ATUProject1/EmployeeManagementSystem
-            dotnet build --configuration Release
-            mkdir -p ./published
-            cp -R ./bin/Release/net7.0/. ./published
-            cp ../TestProject/bin/Release/net7.0/TestProject.dll ./published
+          cd ./ATUProject1/EmployeeManagementSystem
+          dotnet build --configuration Release
+          mkdir -p ./published
+           cp -R ./bin/Release/net7.0/. ./published
+          cp ../TestProject/bin/Release/net7.0/TestProject.dll ./published
 
       - name: Rename .deps.json in published directory
         run: |
