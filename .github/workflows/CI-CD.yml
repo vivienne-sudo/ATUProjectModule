@@ -41,8 +41,5 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet }}
 
-      - name: Restore NuGet packages for test project
-        run: dotnet restore ATUProject1/TestProject/TestProject.csproj
-
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal ATUProject1/TestProject/TestProject.csproj
+        run: dotnet test --no-build --verbosity normal ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem.csproj
