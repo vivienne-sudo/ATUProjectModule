@@ -24,9 +24,11 @@ jobs:
 
       - name: Build and publish .NET Core app
         run: |
-          cd ${{ env.APP_DIRECTORY }}
-          dotnet build --configuration Release
-          dotnet publish --configuration Release --output ./published
+         cd ${{ env.APP_DIRECTORY }}
+         dotnet build --configuration Release
+         dotnet publish --configuration Release --output ./published
+         ls -la ./published
+
           
       - name: Copy .deps.json to published directory
         run: |
