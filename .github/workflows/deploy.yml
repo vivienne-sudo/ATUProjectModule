@@ -24,25 +24,19 @@ jobs:
 
       - name: Build and publish .NET Core app
         run: |
-         cd ${{ env.APP_DIRECTORY }}
-         dotnet build --configuration Release
-         dotnet publish --configuration Release --output ./published
-         ls -la ./published
+          cd ${{ env.APP_DIRECTORY }}
+          dotnet build --configuration Release
+          dotnet publish --configuration Release --output ./published
+          ls -la ./published
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT }}
-          
-      - name: Copy app.yaml to published directory
-        run: |
-          cd ${{ env.APP_DIRECTORY }}
-          cp app.yml ./published/app.yaml
 
-      - name: Deploy to Google Cloud
+      - name: Deploy to Google Cloud Run
         run: |
           cd ${{ env.APP_DIRECTORY }}/published
-           gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem
+          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem
           gcloud run deploy my-app --image gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem --platform managed
-
