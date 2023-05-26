@@ -20,8 +20,4 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
 
       - name: Deploy to Google Cloud
-        run: gcloud app deploy --quiet
-
-
-
-
+        run: gcloud app deploy ATUProjectModule/ATUProject1/EmployeeManagementSystem/app.yml --quiet
