@@ -23,14 +23,14 @@ jobs:
       run: gcloud auth configure-docker
 
     - name: Build Docker image
-      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/EmployeeManagementSystem .
+      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem .
 
     - name: Push Docker image
-      run: docker push gcr.io/${{ secrets.GCP_PROJECT }}/EmployeeManagementSystem
+      run: docker push gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem
 
     - name: Deploy to Google Cloud Run
-      run: gcloud run deploy EmployeeManagementSystem --image gcr.io/${{ secrets.GCP_PROJECT }}/EmployeeManagementSystem --platform managed --region us-central1 --allow-unauthenticated
+      run: gcloud run deploy employeemanagementsystem --image gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem --platform managed --region us-central1 --allow-unauthenticated
 
 
     - name: Deploy to Google Cloud Run
-      run: gcloud run deploy my-app --image gcr.io/${{ secrets.GCP_PROJECT }}/my-app --platform managed --region us-central1 --allow-unauthenticated
+      run: gcloud run deploy employeemanagementsystem --image gcr.io/${{ secrets.GCP_PROJECT }}/employeemanagementsystem --platform managed --region us-central1 --allow-unauthenticated
