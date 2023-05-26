@@ -1,8 +1,0 @@
-runtime: aspnetcore
-env: flex
-
-service: your-service-name
-
-handlers:
-- url: /.*
-  script: startup.dll
