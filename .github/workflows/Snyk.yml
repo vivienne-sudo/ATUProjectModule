@@ -1,4 +1,4 @@
-name: Snyk
+name: Snyk .NET
 
 on: [push, pull_request]
 
@@ -9,7 +9,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run Snyk to check .NET dependencies for vulnerabilities
+      - name: Run Snyk to check .NET dependencies
         uses: snyk/actions/dotnet@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args: .ATUProject1/EmployeeManagementSystem/EmployeeManagementSystem
