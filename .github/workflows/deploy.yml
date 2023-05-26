@@ -29,7 +29,9 @@ jobs:
           dotnet publish --configuration Release --output ./published
           
       - name: Copy .deps.json to published directory
-        run: cp ATUProjectModule/ATUProject1/EmployeeManagementSystem/bin/Debug/net7.0/EmployeeManagementSystem.deps.json ./published
+        run: |
+          cd ${{ env.APP_DIRECTORY }}
+          cp bin/Debug/net7.0/EmployeeManagementSystem.deps.json ./published
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
@@ -39,7 +41,8 @@ jobs:
           
       - name: Copy app.yaml to published directory
         run: |
-          cp ${{ env.APP_DIRECTORY }}/app.yml ${{ env.APP_DIRECTORY }}/published/app.yaml
+          cd ${{ env.APP_DIRECTORY }}
+          cp app.yml ./published/app.yaml
 
       - name: Deploy to Google Cloud
         run: |
