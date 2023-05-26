@@ -60,6 +60,6 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Run Dependabot
-        uses: dependabot/dependabot-core@master
+        uses: dependabot/dependabot-core@2.x
         with:
-          args: --package-ecosystem nuget --directory /ATUProject1/EmployeeManagementSystem
+         args: --package-ecosystem nuget --directory /ATUProject1/EmployeeManagementSystem
