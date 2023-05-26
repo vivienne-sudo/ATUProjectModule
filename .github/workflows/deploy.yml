@@ -22,19 +22,18 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Build and Publish
+      - name: Build and publish .NET Core app
         run: |
-          cd ./ATUProject1/EmployeeManagementSystem
-          dotnet build --configuration Release
-          mkdir -p ./published
-           cp -R ./bin/Release/net7.0/. ./published
-          cp ../TestProject/bin/Release/net7.0/TestProject.dll ./published
+         cd ${{ env.APP_DIRECTORY }}
+         dotnet build --configuration Release
+         dotnet publish --configuration Release --output ./published
+         ls -la ./published
 
+          
       - name: Rename .deps.json in published directory
         run: |
           cd ${{ env.APP_DIRECTORY }}/published
-          mv ${{ env.APP_DIRECTORY }}/published/deps.json ${{ env.APP_DIRECTORY }}/published/.deps.json
-          ls -la
+          mv EmployeeManagementSystem.deps.json deps.json
 
 
       - name: Set up Google Cloud SDK
