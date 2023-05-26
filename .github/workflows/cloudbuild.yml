@@ -1,0 +1,36 @@
+name: Deploy to Google Cloud
+
+on:
+  push:
+    branches:
+      - MainEMSCompleted
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT }}
+
+    - name: Configure Docker
+      run: gcloud auth configure-docker
+
+    - name: Build Docker image
+      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/EmployeeManagementSystem .
+
+    - name: Push Docker image
+      run: docker push gcr.io/${{ secrets.GCP_PROJECT }}/EmployeeManagementSystem
+
+    - name: Deploy to Google Cloud Run
+      run: gcloud run deploy EmployeeManagementSystem --image gcr.io/${{ secrets.GCP_PROJECT }}/EmployeeManagementSystem --platform managed --region us-central1 --allow-unauthenticated
+
+
+    - name: Deploy to Google Cloud Run
+      run: gcloud run deploy my-app --image gcr.io/${{ secrets.GCP_PROJECT }}/my-app --platform managed --region us-central1 --allow-unauthenticated
