@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: OSSAR reports
-          path: Documentation/Reports
+          path: MainEMSComplete/Documentation/Reports
