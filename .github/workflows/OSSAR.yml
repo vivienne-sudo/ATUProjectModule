@@ -11,17 +11,25 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Specify the Windows runner
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Run OSSAR analysis
+        id: ossar
         uses: github/ossar-action@v1
+        with:
+          upload: false  # Set upload to false to generate the reports without uploading
+
+      - name: Generate OSSAR reports
+        run: |
+          mkdir -p Documentation/Reports
+          cp ${{ steps.ossar.outputs.sarif_file }} Documentation/Reports/msdo.sarif
 
       - name: Upload OSSAR reports
         uses: actions/upload-artifact@v2
         with:
           name: OSSAR reports
-          path: .gdn/
+          path: Documentation/Reports
