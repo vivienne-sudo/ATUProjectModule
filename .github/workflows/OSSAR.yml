@@ -2,20 +2,28 @@ name: 'OSSAR analysis'
 
 on:
   push:
-    branches: MainEMSCompleted
+    branches:
+      - MainEMSCompleted
   pull_request:
-    branches: MainEMSCompleted
-  
+    branches:
+      - MainEMSCompleted
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Run OSSAR analysis
-      uses: github/ossar-action@v1
-      with:
-        upload: true
+      - name: Run OSSAR analysis
+        uses: github/ossar-action@v1
+        with:
+          upload: true
+
+      - name: Upload OSSAR reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: OSSAR reports
+          path: Documentation/Reports
