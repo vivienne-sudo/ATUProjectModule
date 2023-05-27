@@ -32,6 +32,10 @@ jobs:
       run: dotnet build --no-restore
       working-directory: ATUProject1/EmployeeManagementSystem
 
+    - name: Stop dotnet process
+      run: |
+        Stop-Process -Name "dotnet" -Force -ErrorAction SilentlyContinue
+
     - name: Setup .NET Core 6.0
       uses: actions/setup-dotnet@v1
       with:
