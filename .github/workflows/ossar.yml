@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "MainEMSCompleted", newmainbranchrule ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ "MainEMSCompleted" ]
   schedule:
     - cron: '43 19 * * 1'
@@ -16,10 +15,6 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
 
     steps:
     - uses: actions/checkout@v2
@@ -27,13 +22,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '7.0' # specify the version of .NET core required for your project
+        dotnet-version: '7.0' 
 
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ATUProject1/EmployeeManagementSystem
 
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ATUProject1/EmployeeManagementSystem
 
     - name: Run OSSAR
       uses: github/ossar-action@v1
