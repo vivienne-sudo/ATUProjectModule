@@ -1,0 +1,21 @@
+name: 'OSSAR analysis'
+
+on:
+  push:
+    branches: MainEMSCompleted
+  pull_request:
+    branches: MainEMSCompleted
+  
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run OSSAR analysis
+      uses: github/ossar-action@v1
+      with:
+        upload: true
