@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-latest  # Specify the Windows runner
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -21,15 +21,10 @@ jobs:
         id: ossar
         uses: github/ossar-action@v1
         with:
-          upload: false  # Set upload to false to generate the reports without uploading
-
-      - name: Generate OSSAR reports
-        run: |
-          mkdir -p Documentation/Reports
-          cp ${{ steps.ossar.outputs.sarif_file }} Documentation/Reports/msdo.sarif
+          upload: true  # Set upload to true to generate and upload the reports
 
       - name: Upload OSSAR reports
         uses: actions/upload-artifact@v2
         with:
           name: OSSAR reports
-          path: Documentation/Reports
+          path: ${{ steps.ossar.outputs.report_directory }}
